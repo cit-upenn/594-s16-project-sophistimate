@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+/* Here is the test class used for Github connection test */
 public class Test {
     public static void main(String[] args) throws IOException {
         JFrame test = new JFrame("Google Maps");
