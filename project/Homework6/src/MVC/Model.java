@@ -14,7 +14,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 
 import House.*;
-import proj.Model.Service;
 
 /**
  * This is Model class part of MVC
