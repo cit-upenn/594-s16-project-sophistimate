@@ -31,19 +31,25 @@ public class Model extends Observable{
 	MongoClient mongoClient;
 	MongoDatabase db;
 	FindIterable<Document> iterable;
+	
+	private final String databaseName = "cit594";
+	private final String collectionName = "proj";
 
+	/**
+	 * This is constructor of model, initialize the database variables, and property variables
+	 */
 	public Model(){
 		houseList = null;
 		houseType = null;
 		isAscendent = 1;
 		mongoClient = new MongoClient( "localhost" , 27017 );
-	    db = mongoClient.getDatabase("cit594");
+	    db = mongoClient.getDatabase(databaseName);
 	}
 	
 	
 	/**
 	 * set service to sell
-	 * @return
+	 * @return true if normal
 	 */
 	public boolean sell() {
 	    service = Service.SELL;
@@ -51,15 +57,22 @@ public class Model extends Observable{
 //	    service = SELL;
 	  }
 	  
+	/**
+	 * set service to buy
+	 * @return true if normal
+	 */
 	public boolean buy() {
 	  service = Service.BUY;
 	  return true;
 	}
 	
-	public void getResultByStreetName(String location) {
-	    
+	/**
+	 * This is method used to communicate database, to query and get result
+	 * @param location This is location keyword we pass into method, and get result based on location
+	 */
+	public void getResultByLocation(String location) {	    
 	  //and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7))
-	  iterable = db.getCollection("proj").find(and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7)));
+	  iterable = db.getCollection(collectionName).find(and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7)));
 	  iterable.forEach(new Block<Document>() {
     	  @Override
     	  public void apply(final Document document) {
