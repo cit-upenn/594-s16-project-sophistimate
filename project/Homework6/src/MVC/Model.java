@@ -72,6 +72,8 @@ public class Model extends Observable{
 	 */
 	public void getResultByLocation(String location) {	    
 	  //and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7))
+	  
+	  
 	  iterable = db.getCollection(collectionName).find(and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7)));
 	  iterable.forEach(new Block<Document>() {
     	  @Override

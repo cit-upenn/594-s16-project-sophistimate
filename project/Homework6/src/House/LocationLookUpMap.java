@@ -59,6 +59,12 @@ public class LocationLookUpMap {
     return localLookUp;
   }
   
+  /**
+   * This is method for public use
+   * @param location
+   * @return
+   * @throws Exception
+   */
   public Coordinate getCoordinate(String location) throws Exception {
     Coordinate ret = localLookUp.get(location);
     if(ret == null) {
@@ -70,7 +76,12 @@ public class LocationLookUpMap {
     return ret;
   }
   
-  public String getCoordinateByGoogle(String location)
+  /**
+   * This is method only used in this class
+   * @param location
+   * @return
+   */
+  private String getCoordinateByGoogle(String location)
   {
     String ret = null;
     GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyA37ATERCyi0vb1B80cXpJDavxwC7PUZ_k");
