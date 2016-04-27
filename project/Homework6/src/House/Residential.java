@@ -2,11 +2,13 @@ package House;
 
 import java.util.HashMap;
 
+import MVC.Model.Service;
+
 public class Residential extends HouseType{
 	private double parking;
 	private int exterior;
 	private int heatType;
-	private int centralAir;
+	private boolean centralAir;
 	private int interior;
 	private int bedroom;
 	private int bathroom;
@@ -33,13 +35,14 @@ public class Residential extends HouseType{
 		parking = Double.parseDouble(map.get("parking"));
 		exterior = Integer.parseInt(map.get("Exterior Condition"));
 		heatType = Integer.parseInt(map.get("heatType"));
-		centralAir = Integer.parseInt(map.get("Central Air"));
+		centralAir = map.get("Central Air").equals("Y") ? true:false;
 		interior = Integer.parseInt(map.get("Interior Condition"));
 		bedroom = Integer.parseInt(map.get("Number of Bedrooms"));
 		bathroom = Integer.parseInt(map.get("Number of Bathrooms"));
 		basement = Integer.parseInt(map.get("Basements"));
 
 	}
+	
 
 	/*
 	 * this method gets the parking coefficient
@@ -65,7 +68,7 @@ public class Residential extends HouseType{
 	/*
 	 * this method gets whether there is central air condition
 	 */
-	public int getCentralAir(){
+	public boolean getCentralAir(){
 		return centralAir;
 	}
 

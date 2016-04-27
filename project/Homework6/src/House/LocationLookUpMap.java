@@ -63,15 +63,18 @@ public class LocationLookUpMap {
    * This is method for public use
    * @param location
    * @return
-   * @throws Exception
    */
-  public Coordinate getCoordinate(String location) throws Exception {
+  public Coordinate getCoordinate(String location) {
     Coordinate ret = localLookUp.get(location);
     if(ret == null) {
       String coord = getCoordinateByGoogle(location);
       if (coord != null) {
-        ret = new Coordinate(coord);
-      }
+        try {
+          ret = new Coordinate(coord);
+        } catch (NumberFormatException e) {
+          ret = null;
+        }
+      }       
     }
     return ret;
   }

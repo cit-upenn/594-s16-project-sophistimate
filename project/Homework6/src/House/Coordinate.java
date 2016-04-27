@@ -4,7 +4,9 @@ public class Coordinate {
 	  private double latitude;
 	  private double longitude;
 	  private static LocationLookUpMap localLookUp;
-	  public Coordinate(String location) {
+	  
+	  
+	  public Coordinate(String location) throws NumberFormatException{
 		  
 	    
 	    String[] coord = location.split(",");

@@ -7,7 +7,7 @@ public class Commercial extends HouseType{
 	private double parking;
 	private int exterior;
 	private int heatType;
-	private int centralAir;
+	private boolean centralAir;
 	private int interior;
 	
 	/*
@@ -35,7 +35,7 @@ public class Commercial extends HouseType{
 		parking = Double.parseDouble(map.get("parking"));
 		exterior = Integer.parseInt(map.get("Exterior Condition"));
 		heatType = Integer.parseInt(map.get("heatType"));
-		centralAir = Integer.parseInt(map.get("Central Air"));
+		centralAir = map.get("Central Air").equals("Y") ? true:false;
 		interior = Integer.parseInt(map.get("Interior Condition"));
 		
 		
@@ -72,7 +72,7 @@ public class Commercial extends HouseType{
 	/*
 	 * this method gets whether there is central air condition
 	 */
-	public int getCentralAir(){
+	public boolean getCentralAir(){
 		return centralAir;
 	}
 
