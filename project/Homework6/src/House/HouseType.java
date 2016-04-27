@@ -122,4 +122,14 @@ public abstract class HouseType {
 		return location.toString();
 	}
 	
+	abstract public double getOutdoorArea();
+	abstract public int getParking();
+	abstract public int getExterior();
+	abstract public int getHeatType();
+	abstract public int getCentralAir();
+	abstract public int getInterior();
+	abstract public int getBedroom();
+	abstract public int getBathroom();
+	abstract public int getBasement();	
+	
 }
