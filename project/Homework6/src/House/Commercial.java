@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Commercial extends HouseType{
 	private double outdoorArea;
-	private double parking;
+	private int parking;
 	private int exterior;
 	private int heatType;
 	private boolean centralAir;
@@ -32,7 +32,7 @@ public class Commercial extends HouseType{
 		
 		location = new Coordinate(map.get("Coordinates"));
 		outdoorArea = Double.parseDouble(map.get("Total Area"));
-		parking = Double.parseDouble(map.get("parking"));
+		parking = Integer.parseInt(map.get("parking"));
 		exterior = Integer.parseInt(map.get("Exterior Condition"));
 		heatType = Integer.parseInt(map.get("heatType"));
 		centralAir = map.get("Central Air").equals("Y") ? true:false;
@@ -51,7 +51,7 @@ public class Commercial extends HouseType{
 	/*
 	 * this method gets the parking coefficient
 	 */
-	public double getParking(){
+	public int getParking(){
 		return parking;
 	}
 	
@@ -81,6 +81,24 @@ public class Commercial extends HouseType{
 	 */
 	public int getInterior(){
 		return interior;
+	}
+
+	@Override
+	public int getBedroom() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBathroom() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBasement() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

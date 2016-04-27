@@ -126,7 +126,7 @@ public abstract class HouseType {
 	abstract public int getParking();
 	abstract public int getExterior();
 	abstract public int getHeatType();
-	abstract public int getCentralAir();
+	abstract public boolean getCentralAir();
 	abstract public int getInterior();
 	abstract public int getBedroom();
 	abstract public int getBathroom();

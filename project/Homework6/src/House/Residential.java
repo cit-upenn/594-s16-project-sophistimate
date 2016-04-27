@@ -3,7 +3,7 @@ package House;
 import java.util.HashMap;
 
 public class Residential extends HouseType{
-	private double parking;
+	private int parking;
 	private int exterior;
 	private int heatType;
 	private boolean centralAir;
@@ -30,7 +30,7 @@ public class Residential extends HouseType{
 		marketDate = map.get("Market Value Date");
 		
 		location = new Coordinate(map.get("Coordinates"));
-		parking = Double.parseDouble(map.get("parking"));
+		parking = Integer.parseInt(map.get("parking"));
 		exterior = Integer.parseInt(map.get("Exterior Condition"));
 		heatType = Integer.parseInt(map.get("heatType"));
 		centralAir = map.get("Central Air").equals("Y") ? true:false;
@@ -45,7 +45,7 @@ public class Residential extends HouseType{
 	/*
 	 * this method gets the parking coefficient
 	 */
-	public double getParking(){
+	public int getParking(){
 		return parking;
 	}
 
@@ -96,5 +96,12 @@ public class Residential extends HouseType{
 	 */
 	public int getBasement(){
 		return basement;
+	}
+
+
+	@Override
+	public double getOutdoorArea() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

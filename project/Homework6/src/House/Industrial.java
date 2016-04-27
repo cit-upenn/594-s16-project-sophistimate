@@ -50,4 +50,46 @@ public class Industrial extends HouseType{
 	public double parking(){
 		return parking;
 	}
+
+	@Override
+	public int getParking() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getExterior() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeatType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean getCentralAir() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getInterior() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBedroom() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBathroom() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
