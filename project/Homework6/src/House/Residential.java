@@ -2,8 +2,6 @@ package House;
 
 import java.util.HashMap;
 
-import MVC.Model.Service;
-
 public class Residential extends HouseType{
 	private double parking;
 	private int exterior;
