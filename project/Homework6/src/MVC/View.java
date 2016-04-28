@@ -11,6 +11,7 @@ public class View {
 	public View(ArrayList<HouseType> originalList){
 		this.result = originalList;
 		resultListingPage = new ResultListingPage(); 
+		update(result);
 	}
 	
 	public ArrayList<HouseType> getResult(){

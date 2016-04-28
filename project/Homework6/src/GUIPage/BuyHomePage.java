@@ -133,12 +133,12 @@ public class BuyHomePage extends JFrame{
 			BuyHomePage tp = new BuyHomePage();
 			tp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
-			ResultListingPage rl = new ResultListingPage();
+//			ResultListingPage rl = new ResultListingPage();
 //			rl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			rl.setSize(1100, 700);
-			rl.setResizable(false);
-			rl.setVisible(true);
-			rl.setLocationRelativeTo(null);
+//			rl.setSize(1100, 700);
+//			rl.setResizable(false);
+//			rl.setVisible(true);
+//			rl.setLocationRelativeTo(null);
 			
 			
 			tp.setSize(1100, 700);
@@ -198,6 +198,8 @@ public class BuyHomePage extends JFrame{
 	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);
 	    			model.setHouseList( (ArrayList<HouseType>) result );
 	    			model.setHouseType( type.toString() );
+	    			View view = new View((ArrayList<HouseType>) result);
+	    			System.out.println("size is:" + result.size());
 	    		}
 	    		
 	    	}

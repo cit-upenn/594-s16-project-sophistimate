@@ -14,8 +14,8 @@ public class Coordinate {
 	    if(location.indexOf('(') == 0 && location.indexOf(')') == location.length()-1 && coord.length == 2) {
 	    	latitude = Double.parseDouble(coord[0].substring(1));
 	    	longitude = Double.parseDouble(coord[1].substring(0,coord[1].length()-2));
-	    	if(latitude < 39.8806293647618 || latitude > 40.1376079548888 || longitude > -74.9587571741226 || longitude < -75.2748107615542) {
-	    		throw new NumberFormatException("Unknown location!");
+	    	if(latitude < 39.8806293647618 || latitude > 40.1376079548888 /*|| longitude > -74.9587571741226 || longitude < -75.2748107615542*/) {
+	    		throw new NumberFormatException("Unknown location!"+ "  " + latitude + ", " +longitude);
 	    	}     
 	    } else {
 	    	localLookUp = LocationLookUpMap.getInstance();

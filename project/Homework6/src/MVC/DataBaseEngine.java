@@ -73,7 +73,7 @@ public class DataBaseEngine {
       LocationLookUpMap localMap = LocationLookUpMap.getInstance();
       Coordinate crn = localMap.getCoordinate(location);
       //debug
-      System.out.println(crn);
+      System.out.println("center:"+crn);
       
       if (crn == null) {
         return null;

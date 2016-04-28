@@ -11,7 +11,6 @@ public class Model {
 	private static String houseType;//house type selected from main page
 	private static int isAscendent;//flag that indicate the order of sorting
 
-
 	public Model(){
 		houseList = null;
 		houseType = null;
