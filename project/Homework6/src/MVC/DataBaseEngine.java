@@ -18,7 +18,6 @@ import House.HouseType;
 import House.Industrial;
 import House.LocationLookUpMap;
 import House.Residential;
-import MVC.Model.Service;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
