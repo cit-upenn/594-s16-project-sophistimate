@@ -1,13 +1,10 @@
 package MVC;
-
-import GUIPage.*;
-import GUIPage.BuyHomePage.HouseOption;
-
 import org.bson.Document;
 import GUIPage.BuyHomePage.HouseOption;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -18,6 +15,7 @@ import House.HouseType;
 import House.Industrial;
 import House.LocationLookUpMap;
 import House.Residential;
+import MVC.Model.Service;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -34,9 +32,10 @@ public class DataBaseEngine {
   private FindIterable<Document> iterable;
   private final String databaseName = "cit594";
   private final String collectionName = "proj";
+  private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
   
   public DataBaseEngine() {
-    mongoClient = new MongoClient( "localhost" , 27017 );
+    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
     db = mongoClient.getDatabase(databaseName);
   }
   
