@@ -8,12 +8,9 @@ public class View {
 	private ResultListingPage resultListingPage;
 	ArrayList<HouseType> result;
 	
-	public View(){
-		resultListingPage = new ResultListingPage();     /* calling the constructor without updating it is not enough */
-	}
-	
 	public View(ArrayList<HouseType> originalList){
 		this.result = originalList;
+		resultListingPage = new ResultListingPage(); 
 	}
 	
 	public ArrayList<HouseType> getResult(){
