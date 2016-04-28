@@ -1,8 +1,10 @@
 package GUIPage;
 
+import House.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -21,10 +23,13 @@ public class ResultListingPage extends JFrame{
 	private JComboBox parkingLot;
 	private JLabel resultDetail;
 	private JButton submitFilter;
+	private Table table;
+	JPanel resultShow;
 	
 	
 	public ResultListingPage(){
 		panelCreate();
+		init();
 	}
 	
 	public void panelCreate() {
@@ -32,12 +37,13 @@ public class ResultListingPage extends JFrame{
 		JPanel leftPane = new JPanel();
 		JPanel rightPane = new JPanel();
 		
-		JPanel resultShow = new JPanel();
+		resultShow = new JPanel();
 		resultShow.setLayout(new BorderLayout());
 		resultDetail = new JLabel("The label used for displaying details");
 		
+		table = new Table();
 		resultShow.add(resultDetail, BorderLayout.NORTH);
-		resultShow.add(new Table().addTableComp(), BorderLayout.CENTER);
+		resultShow.add(table.addTableComp(), BorderLayout.CENTER);
 		resultShow.add(new Button("View Details"), BorderLayout.SOUTH);
 		
 		JSplitPane splitRightPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, setPreference(), resultShow);
@@ -110,18 +116,44 @@ public class ResultListingPage extends JFrame{
 		return pane;
 	}
 	
+	public void changeTable(ArrayList<HouseType> result){
+		String[] columnNames = {"No.", "Address", "Zip", "Area", "Year", "Sale", "Market", "Outdoor"};
+		Object[][] data = new Object[30][8];
+ 		for ( Integer i = 0 ; i < 30 ; i++ ){
+			data[i] = new Object[] { (i + 1), result.get(i).getHouseNumber() + " " + result.get(i).getStreetName(), 
+					result.get(i).getZipCode(), result.get(i).getLivingArea(), result.get(i).getBuildYear(), result.get(i).getSalePrice(),
+					result.get(i).getMarketValue(), result.get(i).getOutdoorArea() };
+		}
+ 		table.setData(columnNames, data);
+ 		
+	}
+	
+	public Table getTable(){
+		return table;
+	}
+	
 	public JSpinner setSpinner(int min, int max, int step, int initValue){
 		SpinnerModel model = new SpinnerNumberModel(initValue, min, max, step);
 		return new JSpinner(model);
 	}
 	
+	public void init(){
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(1100, 700);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setLocationRelativeTo(null);
+	}
+	
 	public static void main(String[] args) {
 		ResultListingPage rl = new ResultListingPage();
-		rl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		rl.setSize(1100, 700);
-		rl.setResizable(false);
-		rl.setVisible(true);
-		rl.setLocationRelativeTo(null);
+		try{
+			Thread.sleep(5000);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		rl.getTable().setData(new String[]{"a", "b" , "c"}, new Object[][]{{10, 20, 30}, {40, 50, 60}});
+		
 
 	}
 

@@ -1,4 +1,8 @@
 package MVC;
+
+import GUIPage.*;
+import GUIPage.BuyHomePage.HouseOption;
+
 import org.bson.Document;
 
 import com.mongodb.Block;
@@ -39,7 +43,7 @@ public class DataBaseEngine {
    * This is method used to communicate database, to query and get result
    * @param location This is location keyword we pass into method, and get result based on location
    */
-  public List<HouseType> getResultByLocation(String location) {
+  public List<HouseType> getResultByLocation(String location, HouseOption type) {
     List<HouseType> product = new ArrayList<>();
     //and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7)
     try {

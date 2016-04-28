@@ -1,15 +1,21 @@
 package GUIPage;
+import MVC.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+
+import House.HouseType;
+
 
 public class BuyHomePage extends JFrame{
 	
@@ -32,31 +38,35 @@ public class BuyHomePage extends JFrame{
 	JTextField sellLocationInput;
 	JLabel hint;
 	
-	private JRadioButton radioButton1 = new JRadioButton("Residential", false);
+	private JRadioButton radioButton1 = new JRadioButton("Residential", true);
 	private JRadioButton radioButton2 = new JRadioButton("Commercial", false);
 	private JRadioButton radioButton3 = new JRadioButton("Industrial", false);
 	private ButtonGroup myButtonGroup = new ButtonGroup();
 	
+	public enum HouseOption{RESIDENTIAL, COMMERCIAL, INDUSTRIAL};
+	
+	private HouseOption type;
+	
+	private Model model;
+	
 	public BuyHomePage() {   /* Page switch Panel */
+		
+		init();
+		
 		try{
 			img = ImageIO.read(new File("Nice-Green-Home-Wallpaper-HD.jpg"));
 			img2 = ImageIO.read(new File("Buildings.jpg"));
 			img3 = ImageIO.read(new File("Commercial.jpg"));
 			img4 = ImageIO.read(new File("GreenHouse.jpg"));
 			
-//			BufferedImage img = ImageIO.read(new File("industrial.jpg"));
 			background = new JLabel(new ImageIcon(img));			// Residential, Commercial, Industrial
 			this.setContentPane(background);
-//            GridBagConstraints gbc = new GridBagConstraints();
             this.setLayout(new GridBagLayout());
-//            gbc.gridwidth = GridBagConstraints.REMAINDER;
-            // Add stuff...
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-//        JLabel firstLabel = new JLabel("firstLabel");
-//		firstPanel.add(firstLabel);
+		type = HouseOption.RESIDENTIAL;
 	   
 		final Browser browser = new Browser();
 	    browserView = new BrowserView(browser);
@@ -115,13 +125,39 @@ public class BuyHomePage extends JFrame{
 		
 	}
 	
+	public void init(){
+		model = new Model();
+	}
+	
 	public static void main(String[] args){
 			BuyHomePage tp = new BuyHomePage();
 			tp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			ResultListingPage rl = new ResultListingPage();
+//			rl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			rl.setSize(1100, 700);
+			rl.setResizable(false);
+			rl.setVisible(true);
+			rl.setLocationRelativeTo(null);
+			
+			
 			tp.setSize(1100, 700);
 			tp.setResizable(false);
 			tp.setVisible(true);
 			tp.setLocationRelativeTo(null);
+			
+			try{
+				Thread.sleep(5000);
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+			
+//			while(!rl.isShowing()) {
+//				System.out.println(HouseOption.COMMERCIAL.toString());
+//				rl.show();
+//				
+//			}
+			
 	}
 	
 	public void addActionListeners(){
@@ -130,6 +166,7 @@ public class BuyHomePage extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				background.setIcon(new ImageIcon(img4));
 				hint.setForeground(Color.white);
+				type = HouseOption.RESIDENTIAL;
 			}
 	    });
 	    
@@ -138,6 +175,7 @@ public class BuyHomePage extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				background.setIcon(new ImageIcon(img3));
 				hint.setForeground(Color.black);
+				type = HouseOption.COMMERCIAL;
 			}
 	    });
 	    
@@ -145,7 +183,24 @@ public class BuyHomePage extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				background.setIcon(new ImageIcon(img2));
+				type = HouseOption.INDUSTRIAL;
 			}
+	    });
+	    
+	    submit.addActionListener(new ActionListener(){
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		if (locationInput.getText().trim().length() == 0) {    // Nothing is input! oops! show warning dialog	    			
+	    			JOptionPane.showMessageDialog(getContentPane(), "Please enter Address, Zip or Sites!!", 
+	    					"Error Message", JOptionPane.INFORMATION_MESSAGE);
+	    		} else {
+	    			DataBaseEngine db = new DataBaseEngine();
+	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);
+	    			model.setHouseList( (ArrayList<HouseType>) result );
+	    			model.setHouseType( type.toString() );
+	    		}
+	    		
+	    	}
 	    });
 	}
 
