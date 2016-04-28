@@ -10,12 +10,22 @@ public class Model {
 	private ArrayList<HouseType> houseList;//house list filtered from the main page
 	private static String houseType;//house type selected from main page
 	private static int isAscendent;//flag that indicate the order of sorting
-
+	private View view = null;
+	
 	public Model(){
 		houseList = null;
 		houseType = null;
 		isAscendent = 1;
 	}
+	
+	public void update(ArrayList<HouseType> result){
+		this.houseList = result;
+		if ( view == null) {
+			view = new View(houseList);
+		} 
+		view.update(houseList);
+	}
+	
 	/*
 	 * this method is called only when the main page house type is changed
 	 */

@@ -48,6 +48,7 @@ public class BuyHomePage extends JFrame{
 	private HouseOption type;
 	
 	private Model model;
+	private ResultListingPage resultListing = null;
 	
 	public BuyHomePage() {   /* Page switch Panel */
 		
@@ -129,6 +130,19 @@ public class BuyHomePage extends JFrame{
 		model = new Model();
 	}
 	
+	public void showPage(ArrayList<HouseType> result){
+		if (resultListing == null) { 
+			resultListing = new ResultListingPage(model);
+		}
+		
+		if (!resultListing.isShowing()) {
+			resultListing.changeTable(result);
+			resultListing.show();
+		} else {
+			resultListing.changeTable(result);
+		}
+	}
+	
 	public static void main(String[] args){
 			BuyHomePage tp = new BuyHomePage();
 			tp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -198,7 +212,8 @@ public class BuyHomePage extends JFrame{
 	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);
 	    			model.setHouseList( (ArrayList<HouseType>) result );
 	    			model.setHouseType( type.toString() );
-	    			View view = new View((ArrayList<HouseType>) result);
+	    			showPage( (ArrayList<HouseType>) result);
+   			
 	    			System.out.println("size is:" + result.size());
 	    		}
 	    		

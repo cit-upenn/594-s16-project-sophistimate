@@ -1,9 +1,12 @@
 package GUIPage;
 
+import MVC.*;
 import House.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -24,12 +27,20 @@ public class ResultListingPage extends JFrame{
 	private JLabel resultDetail;
 	private JButton submitFilter;
 	private Table table;
-	JPanel resultShow;
+	private JPanel resultShow;
+	
+	private Model model;
+	private View view;
 	
 	
 	public ResultListingPage(){
 		panelCreate();
 		init();
+	}
+	
+	public ResultListingPage(Model e){
+		this();
+		setModel(e);
 	}
 	
 	public void panelCreate() {
@@ -69,7 +80,9 @@ public class ResultListingPage extends JFrame{
 		leftPane.setSize(new Dimension(550, 500));
 		browserView.setSize(new Dimension(550, 500));
 		leftPane.add(browserView.getComponent(0), BorderLayout.CENTER);
-		browser.loadURL("http://maps.google.com");
+		File file = new File("");
+		String path = file.getAbsolutePath();
+		browser.loadURL(path + "/map.html");
 	}
 	
 	public JPanel setPreference() {
@@ -136,25 +149,31 @@ public class ResultListingPage extends JFrame{
 		SpinnerModel model = new SpinnerNumberModel(initValue, min, max, step);
 		return new JSpinner(model);
 	}
+
+	public void setModel(Model m){
+		model = m;
+	}
 	
 	public void init(){
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1100, 700);
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
+		
+		
 	}
 	
-	public static void main(String[] args) {
-		ResultListingPage rl = new ResultListingPage();
-		try{
-			Thread.sleep(5000);
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-		rl.getTable().setData(new String[]{"a", "b" , "c"}, new Object[][]{{10, 20, 30}, {40, 50, 60}});
-		
-
-	}
+//	public static void main(String[] args) {
+//		ResultListingPage rl = new ResultListingPage();
+//		try{
+//			Thread.sleep(5000);
+//		} catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		rl.getTable().setData(new String[]{"a", "b" , "c"}, new Object[][]{{10, 20, 30}, {40, 50, 60}});
+//		
+//
+//	}
 
 }
