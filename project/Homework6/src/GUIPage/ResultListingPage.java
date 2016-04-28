@@ -29,6 +29,7 @@ public class ResultListingPage extends JFrame{
 	private Table table;
 	private JPanel resultShow;
 	
+	private ArrayList<HouseType> retHouse;
 	private Model model;
 	private View view;
 	
@@ -39,8 +40,11 @@ public class ResultListingPage extends JFrame{
 	}
 	
 	public ResultListingPage(Model e){
-		this();
 		setModel(e);
+		retHouse = model.getHouseList();
+		panelCreate();
+        init();
+
 	}
 	
 	public void panelCreate() {
@@ -74,16 +78,41 @@ public class ResultListingPage extends JFrame{
 	}
 	
 	public void googleMapPane(JPanel leftPane){
-		final Browser browser = new Browser();		
+		Browser browser = new Browser();		
 		BrowserView browserView = new BrowserView(browser);
 		leftPane.setLayout(new BorderLayout());
 		leftPane.setSize(new Dimension(550, 500));
 		browserView.setSize(new Dimension(550, 500));
 		leftPane.add(browserView.getComponent(0), BorderLayout.CENTER);
-//		File file = new File("");
-//		String path = file.getAbsolutePath();
-//		browser.loadURL(path + "/map.html");
-		browser.loadURL("www.google.com/maps");
+		File file = new File("");
+		String path = file.getAbsolutePath();
+		System.out.println(path+"/map.html");
+		
+		browser.loadURL("file://"+path+"/map.html");
+		
+		try {
+          Thread.sleep(2000);
+        } catch (InterruptedException e) {
+           // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+//		System.out.println(retHouse.get(0).getLocation());
+//      browser.executeJavaScript("var myLatLng = new google.maps.LatLng(" + retHouse.get(0).getLocation() + ");\n"
+//      + "var marker = new google.maps.Marker({\n"+
+//      "position: myLatLng,\n"+
+//      "map: map\n"+
+//      
+//    "});");
+//		
+		for(int i = 0; i < 30;i++){
+		    System.out.println(retHouse.get(i).getLocation());
+	        browser.executeJavaScript("var myLatLng = new google.maps.LatLng(" + retHouse.get(i).getLocation() + ");\n"
+	            + "var marker = new google.maps.Marker({\n"+
+	            "position: myLatLng,\n"+
+	            "map: map\n"+
+	            
+	          "});");		  
+		}
 	}
 	
 	public JPanel setPreference() {
@@ -165,6 +194,10 @@ public class ResultListingPage extends JFrame{
 		
 	}
 	
+//	public static void main(String[] args) {
+//	  JPanel abc = new JPanel();
+//	  googleMapPane(abc);
+//	}
 //	public static void main(String[] args) {
 //		ResultListingPage rl = new ResultListingPage();
 //		try{
