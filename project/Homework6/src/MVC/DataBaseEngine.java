@@ -43,6 +43,7 @@ public class DataBaseEngine {
    * @param location This is location keyword we pass into method, and get result based on location
    */
   public List<HouseType> getResultByLocation(String location, HouseOption type) {
+	long startTime = System.currentTimeMillis();
     List<HouseType> product = new ArrayList<>();
     //and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7)
     try {
@@ -81,6 +82,7 @@ public class DataBaseEngine {
       
       //TO DO improved by indexing search
       iterable = db.getCollection(collectionName).find();
+      
       iterable.forEach(new Block<Document>() {
         @Override
         public void apply(final Document document) { 
@@ -89,6 +91,7 @@ public class DataBaseEngine {
           }        
         }
       });
+      
     } 
     return product;
   }

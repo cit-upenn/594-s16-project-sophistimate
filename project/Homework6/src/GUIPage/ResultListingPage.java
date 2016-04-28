@@ -80,9 +80,10 @@ public class ResultListingPage extends JFrame{
 		leftPane.setSize(new Dimension(550, 500));
 		browserView.setSize(new Dimension(550, 500));
 		leftPane.add(browserView.getComponent(0), BorderLayout.CENTER);
-		File file = new File("");
-		String path = file.getAbsolutePath();
-		browser.loadURL(path + "/map.html");
+//		File file = new File("");
+//		String path = file.getAbsolutePath();
+//		browser.loadURL(path + "/map.html");
+		browser.loadURL("www.google.com/maps");
 	}
 	
 	public JPanel setPreference() {
