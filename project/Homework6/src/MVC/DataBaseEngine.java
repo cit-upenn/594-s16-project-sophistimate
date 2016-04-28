@@ -4,6 +4,7 @@ import GUIPage.*;
 import GUIPage.BuyHomePage.HouseOption;
 
 import org.bson.Document;
+import GUIPage.BuyHomePage.HouseOption;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
@@ -17,6 +18,7 @@ import House.HouseType;
 import House.Industrial;
 import House.LocationLookUpMap;
 import House.Residential;
+import MVC.Model.Service;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -85,7 +87,7 @@ public class DataBaseEngine {
       iterable.forEach(new Block<Document>() {
         @Override
         public void apply(final Document document) { 
-          if(crn.distance(new Coordinate(document.getString("Coordinates"))) <= 1000) {
+          if(crn.distance(new Coordinate(document.getString("Coordinates"))) <= 1000 && document.getString("Category Code Description").equals(type.toString())) {
             product.add(HouseConstructor(AttribMap(document)));
           }        
         }
@@ -223,6 +225,7 @@ public class DataBaseEngine {
     map.put("Number of Bedrooms", parseObject(document.get("Number of Bedrooms")));
     map.put("Number of Bathrooms", parseObject(document.get("Number of Bathrooms")));  
     map.put("Number of Rooms", parseObject(document.get("Number of Rooms")));
+    
     return map;     
   }
   
