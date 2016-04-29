@@ -1,10 +1,12 @@
 package GUIPage;
-
 import MVC.*;
 import House.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +16,9 @@ import javax.swing.*;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
-public class ResultListingPage extends JFrame{
+import GUIPage.BuyHomePage.HouseOption;
+
+public class ResultListingPage extends JFrame{    /* How to resolove conflicts */
 	private JSpinner livingAreaMin;  
 	private JSpinner livingAreaMax;
 	private JSpinner buildYearMin;
@@ -30,8 +34,12 @@ public class ResultListingPage extends JFrame{
 	private JPanel resultShow;
 	
 	private ArrayList<HouseType> retHouse;
+	private HouseType currentHouse;
+	private int lastRow;
 	private Model model;
 	private View view;
+	private Browser browser;
+	private BrowserView browserView;
 	
 	
 	public ResultListingPage(){
@@ -78,8 +86,8 @@ public class ResultListingPage extends JFrame{
 	}
 	
 	public void googleMapPane(JPanel leftPane){
-		Browser browser = new Browser();		
-		BrowserView browserView = new BrowserView(browser);
+		browser = new Browser();		
+		browserView = new BrowserView(browser);
 		leftPane.setLayout(new BorderLayout());
 		leftPane.setSize(new Dimension(550, 500));
 		browserView.setSize(new Dimension(550, 500));
@@ -93,7 +101,7 @@ public class ResultListingPage extends JFrame{
 		try {
           Thread.sleep(2000);
         } catch (InterruptedException e) {
-           // TODO Auto-generated catch block
+           
           e.printStackTrace();
         }
 //		System.out.println(retHouse.get(0).getLocation());
@@ -104,15 +112,29 @@ public class ResultListingPage extends JFrame{
 //      
 //    "});");
 //		
+		markMap();
+		addActionListeners();
+	}
+	
+	public void markMap(){
+		int countRow = retHouse.size();
 		for(int i = 0; i < 30;i++){
-		    System.out.println(retHouse.get(i).getLocation());
+		    if(countRow <= i){
+		    	continue;
+		    }
 	        browser.executeJavaScript("var myLatLng = new google.maps.LatLng(" + retHouse.get(i).getLocation() + ");\n"
 	            + "var marker = new google.maps.Marker({\n"+
 	            "position: myLatLng,\n"+
-	            "map: map\n"+
-	            
-	          "});");		  
+	            "map: map\n,"+	            
+	          "});\n"+
+	          "marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');\n"+
+	          "markers.push(marker);\n");		  
 		}
+	}
+	
+	public void clearMap(){
+		browser.executeJavaScript("setMapOnAll(null);\n"+"markers = [];\n");
+		
 	}
 	
 	public JPanel setPreference() {
@@ -192,6 +214,54 @@ public class ResultListingPage extends JFrame{
 		this.setLocationRelativeTo(null);
 		
 		
+	}
+	
+	public void addActionListeners(){
+		table.table.addMouseListener(new java.awt.event.MouseAdapter(){
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt){
+				int row = table.table.rowAtPoint(evt.getPoint());
+				if(currentHouse != null){
+			        browser.executeJavaScript("markers["+ lastRow +"].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')");
+				}
+				lastRow = row;
+				if(row >= 0 && row < retHouse.size()){
+					currentHouse = retHouse.get(row);
+					browser.executeJavaScript("markers["+ lastRow +"].setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')");
+					
+				}
+			}
+		});
+		
+	    submitFilter.addActionListener(new ActionListener(){
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		int la_low = Integer.parseInt(livingAreaMin.getValue().toString().trim());
+	    		int la_high = Integer.parseInt(livingAreaMax.getValue().toString().trim());
+	    		int by_low = Integer.parseInt(buildYearMin.getValue().toString().trim());
+	    		int by_high = Integer.parseInt(buildYearMax.getValue().toString().trim());
+	    		int sp_low = Integer.parseInt(salePriceMin.getValue().toString().trim());
+	    		int sp_high = Integer.parseInt(salePriceMax.getValue().toString().trim());
+	    		int mv_low = Integer.parseInt(marketValueMin.getValue().toString().trim());
+	    		int mv_high = Integer.parseInt(marketValueMax.getValue().toString().trim());
+	    		String park = parkingLot.getSelectedItem().toString();
+	    		int parking;
+	    		if(park.equals("Yes")){
+	    			parking = 1;
+	    		}else{
+	    			parking = 0;
+	    		}
+	    		retHouse = model.filtering(la_low, la_high, by_low, by_high, sp_low, sp_high, mv_low, mv_high, parking);
+	    		currentHouse = null;
+	    		changeTable(retHouse);
+	    		clearMap();
+	    		markMap();
+	    		
+	    		
+	    	}
+	    });
+
+	    
 	}
 	
 //	public static void main(String[] args) {
