@@ -1,10 +1,12 @@
 package GUIPage;
-
 import MVC.*;
 import House.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import javax.swing.*;
 
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+
+import GUIPage.BuyHomePage.HouseOption;
 
 public class ResultListingPage extends JFrame{
 	private JSpinner livingAreaMin;  
@@ -29,8 +33,13 @@ public class ResultListingPage extends JFrame{
 	private Table table;
 	private JPanel resultShow;
 	
+	private ArrayList<HouseType> retHouse;
+	private HouseType currentHouse;
+	private int lastRow;
 	private Model model;
 	private View view;
+	private Browser browser;
+	private BrowserView browserView;
 	
 	
 	public ResultListingPage(){
@@ -39,8 +48,11 @@ public class ResultListingPage extends JFrame{
 	}
 	
 	public ResultListingPage(Model e){
-		this();
 		setModel(e);
+		retHouse = model.getHouseList();
+		panelCreate();
+        init();
+
 	}
 	
 	public void panelCreate() {
@@ -74,16 +86,43 @@ public class ResultListingPage extends JFrame{
 	}
 	
 	public void googleMapPane(JPanel leftPane){
-		final Browser browser = new Browser();		
-		BrowserView browserView = new BrowserView(browser);
+		browser = new Browser();		
+		browserView = new BrowserView(browser);
 		leftPane.setLayout(new BorderLayout());
 		leftPane.setSize(new Dimension(550, 500));
 		browserView.setSize(new Dimension(550, 500));
 		leftPane.add(browserView.getComponent(0), BorderLayout.CENTER);
-//		File file = new File("");
-//		String path = file.getAbsolutePath();
-//		browser.loadURL(path + "/map.html");
-		browser.loadURL("www.google.com/maps");
+		File file = new File("");
+		String path = file.getAbsolutePath();
+		System.out.println(path+"/map.html");
+		
+		browser.loadURL("file://"+path+"/map.html");
+		
+		try {
+          Thread.sleep(2000);
+        } catch (InterruptedException e) {
+           // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+//		System.out.println(retHouse.get(0).getLocation());
+//      browser.executeJavaScript("var myLatLng = new google.maps.LatLng(" + retHouse.get(0).getLocation() + ");\n"
+//      + "var marker = new google.maps.Marker({\n"+
+//      "position: myLatLng,\n"+
+//      "map: map\n"+
+//      
+//    "});");
+//		
+		for(int i = 0; i < 30;i++){
+		    System.out.println(retHouse.get(i).getLocation());
+	        browser.executeJavaScript("var myLatLng = new google.maps.LatLng(" + retHouse.get(i).getLocation() + ");\n"
+	            + "var marker = new google.maps.Marker({\n"+
+	            "position: myLatLng,\n"+
+	            "map: map\n,"+	            
+	          "});\n"+
+	          "marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');\n"+
+	          "markers.push(marker);\n");		  
+		}
+		addActionListeners();
 	}
 	
 	public JPanel setPreference() {
@@ -163,6 +202,26 @@ public class ResultListingPage extends JFrame{
 		this.setLocationRelativeTo(null);
 		
 		
+	}
+	
+	public void addActionListeners(){
+		table.table.addMouseListener(new java.awt.event.MouseAdapter(){
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt){
+				int row = table.table.rowAtPoint(evt.getPoint());
+				if(currentHouse != null){
+			        browser.executeJavaScript("markers["+ lastRow +"].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')");
+				}
+				lastRow = row;
+				if(row >= 0){
+					currentHouse = retHouse.get(row);
+					browser.executeJavaScript("markers["+ lastRow +"].setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')");
+					
+				}
+			}
+		});
+
+	    
 	}
 	
 //	public static void main(String[] args) {

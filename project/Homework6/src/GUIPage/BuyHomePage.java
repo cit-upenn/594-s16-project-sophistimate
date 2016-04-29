@@ -49,7 +49,7 @@ public class BuyHomePage extends JFrame{
 	
 	private Model model;
 	private ResultListingPage resultListing = null;
-	private JProgressBar pbar;
+	private ProgressBar pbarFrame;
 	
 	public BuyHomePage() {   /* Page switch Panel */
 		
@@ -131,53 +131,6 @@ public class BuyHomePage extends JFrame{
 		model = new Model();
 	}
 	
-	public void initProgressBar(){
-		  final int PROGRESS_MINIMUM = 0;
-
-		  final int PROGRESS_MAXIMUM = 100;
-		  // initialize Progress Bar
-		  pbar = new JProgressBar();
-
-		  pbar.setMinimum(PROGRESS_MINIMUM);
-		  pbar.setMaximum(PROGRESS_MAXIMUM);		  
-		  pbar.setValue(0);
-		  JFrame pbarFrame = new JFrame();
-		  pbarFrame.setLayout(new BorderLayout());
-		  // add to JPanel
-		  JPanel p = new JPanel();
-		  p.add(pbar);
-		  pbarFrame.getContentPane().add(p);
-		  pbarFrame.pack();
-		  pbar.setVisible(true);
-		  pbar.setIndeterminate(true);
-		  pbar.setStringPainted(true);
-		  pbarFrame.setVisible(true);
-		  pbarFrame.setSize(500, 300);
-		  
-	}
-	
-	  public void updateBar(int newValue) {
-		    pbar.setValue(newValue);
-	}
-	
-	public void updateBar() {
-		
-		for ( int k = pbar.getMinimum(); k < pbar.getMaximum(); k++ ){
-			final int value = k;
-			try{
-//				SwingUtilities.invokeLater(new Runnable() {
-//			          public void run() {
-//			        	  pbar.setValue(value);
-//			          }
-//			        });
-				pbar.setValue(value);
-				Thread.sleep(500);
-			} catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-	  }
-	
 	public void showPage(ArrayList<HouseType> result){
 		if (resultListing == null) { 
 			resultListing = new ResultListingPage(model);
@@ -219,7 +172,7 @@ public class BuyHomePage extends JFrame{
 //				rl.show();
 //				
 //			}
-			
+		
 	}
 	
 	public void addActionListeners(){
@@ -252,24 +205,46 @@ public class BuyHomePage extends JFrame{
 	    submit.addActionListener(new ActionListener(){
 	    	@Override
 	    	public void actionPerformed(ActionEvent e) {
+	    		
 	    		if (locationInput.getText().trim().length() == 0) {    // Nothing is input! oops! show warning dialog	    			
 	    			JOptionPane.showMessageDialog(getContentPane(), "Please enter Address, Zip or Sites!!", 
 	    					"Error Message", JOptionPane.INFORMATION_MESSAGE);
 	    		} else {
-	    			initProgressBar();
-	    			updateBar();
+	    	    	
+	    			if(pbarFrame != null) pbarFrame.dispose();
 	    			
-	    			DataBaseEngine db = new DataBaseEngine();
-	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);
-	    			model.setHouseList( (ArrayList<HouseType>) result );
-	    			model.setHouseType( type.toString() );
-	    			
-	    			showPage( (ArrayList<HouseType>) result);
-	    			System.out.println("size is:" + result.size());
+	    			pbarFrame = new ProgressBar();
+	    			swingWorker();
 	    		}
 	    		
 	    	}
 	    });
 	}
+	
+	public void swingWorker(){
+			
+			SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+				
+				@Override 
+				protected Void doInBackground() {
+					
+					DataBaseEngine db = new DataBaseEngine();
+	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);
+	    			model.setHouseList( (ArrayList<HouseType>) result );
+	    			model.setHouseType( type.toString() );
+	    			
+	    			showPage( (ArrayList<HouseType>) result);
+	    			
+	    			pbarFrame.stop();
+	    			
+	    			System.out.println("size is:" + result.size());
+					return null;
+				}
+			};
+			
+			worker.execute();
+	
+  }
+	
 
 }
