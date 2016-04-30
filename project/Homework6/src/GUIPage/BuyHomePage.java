@@ -19,42 +19,48 @@ import House.HouseType;
 
 public class BuyHomePage extends JFrame{
 	
+	//panels and browser which make up this frame
 	private JPanel firstPanel = new JPanel();
-	private JPanel secondPanel = new JPanel();
-	
+	private JPanel secondPanel = new JPanel();	
 	private BrowserView browserView;
 	private JLabel background;
 	private JTabbedPane tabbedPane = new JTabbedPane();
-	
+
+	//picture information used in this frame
 	private int pictureFlag = 0;
 	private BufferedImage img;
 	private BufferedImage img2;
 	private BufferedImage img3;
 	private BufferedImage img4;
-	
+
+	//buttons and text field input which provides basic information for searching
 	JButton submit;
 	JButton submit2;
 	JTextField locationInput;
 	JTextField sellLocationInput;
-	JLabel hint;
-	
+	JLabel hint;	
 	private JRadioButton radioButton1 = new JRadioButton("Residential", true);
 	private JRadioButton radioButton2 = new JRadioButton("Commercial", false);
 	private JRadioButton radioButton3 = new JRadioButton("Industrial", false);
-	private ButtonGroup myButtonGroup = new ButtonGroup();
-	
-	public enum HouseOption{RESIDENTIAL, COMMERCIAL, INDUSTRIAL};
-	
+	private ButtonGroup myButtonGroup = new ButtonGroup();	
+	public enum HouseOption{RESIDENTIAL, COMMERCIAL, INDUSTRIAL};	
 	private HouseOption type;
-	
+
+	//the result model and listing page for the search page
 	private Model model;
 	private ResultListingPage resultListing = null;
-	private ProgressBar pbarFrame;
 	
+	//loading bar
+	private ProgressBar pbarFrame;
+
+	/**
+	 * this is the constructor which set up the components and layout of this page
+	 */
 	public BuyHomePage() {   /* Page switch Panel */
 		
 		init();
 		
+		//set up images used in this frame
 		try{
 			img = ImageIO.read(new File("Nice-Green-Home-Wallpaper-HD.jpg"));
 			img2 = ImageIO.read(new File("Buildings.jpg"));
@@ -68,6 +74,7 @@ public class BuyHomePage extends JFrame{
 			e.printStackTrace();
 		}
 		
+		//get house type and set layout of the panels
 		type = HouseOption.RESIDENTIAL;
 	   
 		final Browser browser = new Browser();
@@ -77,8 +84,6 @@ public class BuyHomePage extends JFrame{
 	    secondPanel.setSize(new Dimension(500, 80));
 //	    browserView.setSize(new Dimension(500, 500));
 //	    secondPanel.add(browserView.getComponent(0), BorderLayout.CENTER);
-//	    
-//	    browser.loadURL("http://maps.google.com");
 		
 	    firstPanel.setOpaque(false);
 	    locationInput = new JTextField("Address, Zip, Sites");
@@ -88,8 +93,8 @@ public class BuyHomePage extends JFrame{
 	    submit = new JButton("Submit"); 
 	    submit2 = new JButton("Submit"); 
 	    
-	    addActionListeners();
-	    
+	    //add action listener and components to the panels
+	    addActionListeners();	    
 	    firstPanel.setPreferredSize(new Dimension(500, 80));
 	    firstPanel.add(locationInput);
 	    firstPanel.add(submit);
@@ -127,36 +132,33 @@ public class BuyHomePage extends JFrame{
 		
 	}
 	
+	/**
+	 * this method is used to initialize the model
+	 */
 	public void init(){
 		model = new Model();
 	}
 	
+	/**
+	 * this method is used to show the result pages and mark the location in the result listing page
+	 * as well as change the result if user repeatedly search the main page
+	 * @param result
+	 */
 	public void showPage(ArrayList<HouseType> result){
 		if (resultListing == null) { 
 			resultListing = new ResultListingPage(model);
 		}
 		
+		//if repeated search the engine, change the table and map
 		if (!resultListing.isShowing()) {
 			resultListing.changeTable(result);
 			resultListing.clearMap();
 			resultListing.resetInfo(result);
 			resultListing.markMap();
 			resultListing.show();
-//			try {
-//				Thread.sleep(2000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 
 		} else {
 			resultListing.changeTable(result);
-//			try {
-//				Thread.sleep(2000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 			resultListing.clearMap();
 			resultListing.resetInfo(result);
 			resultListing.markMap();
@@ -194,7 +196,13 @@ public class BuyHomePage extends JFrame{
 		
 	}
 	
+	/**
+	 * this method is used to add action listener to the main page search buttons and
+	 * selection components
+	 */
 	public void addActionListeners(){
+		//the following three action listener is used to response to
+		//the change of searching type in the main page
 	    radioButton1.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -221,6 +229,7 @@ public class BuyHomePage extends JFrame{
 			}
 	    });
 	    
+	    //this action listener response to the submit button and connect the database to retrieve the houses information
 	    submit.addActionListener(new ActionListener(){
 	    	@Override
 	    	public void actionPerformed(ActionEvent e) {
@@ -240,6 +249,10 @@ public class BuyHomePage extends JFrame{
 	    });
 	}
 	
+	/**
+	 * the swing worker is used to perform the connection to the database which is time
+	 * consuming, and ensures that it will not affect other operation by user.
+	 */
 	public void swingWorker(){
 			
 			SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -248,8 +261,9 @@ public class BuyHomePage extends JFrame{
 				protected Void doInBackground() {
 //					System.out.println("Here we are00");
 //					List<HouseType> result = new ArrayList<HouseType>();
-					DataBaseEngine db = new DataBaseEngine();
-	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);
+					DataBaseEngine db = new DataBaseEngine();//connect the database
+	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);//search the result
+	    			//set the model's house list and house type
 	    			model.setHouseList( (ArrayList<HouseType>) result );
 	    			model.setHouseType( type.toString() );
 	    			
