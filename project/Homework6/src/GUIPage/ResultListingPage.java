@@ -210,16 +210,20 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 	}
 	
 	public void changeTable(ArrayList<HouseType> result){
-		String[] columnNames = {"No.", "Address", "Zip", "Area", "Year", "Sale", "Market", "Outdoor"};
+		String[] columnNames = {"No.", "Address", "Zip", "Area(ft²)", "Year", "Sale($)", "Market($)", "Outdoor"};
 		Object[][] data = new Object[30][8];
 		if(result.size() != 0){
-	 		for ( Integer i = 0 ; i < 30 ; i++ ){
+	 		for ( Integer i = 0 ; i < Math.min(30, result.size()) ; i++ ){
 				data[i] = new Object[] { (i + 1), result.get(i).getHouseNumber() + " " + result.get(i).getStreetName(), 
 						result.get(i).getZipCode(), result.get(i).getLivingArea(), result.get(i).getBuildYear(), result.get(i).getSalePrice(),
 						result.get(i).getMarketValue(), result.get(i).getOutdoorArea() };
 			}
 		}
  		table.setData(columnNames, data);
+ 		table.table.getColumnModel().getColumn(0).setPreferredWidth(25);
+ 		table.table.getColumnModel().getColumn(1).setPreferredWidth(70);
+ 		table.table.getColumnModel().getColumn(3).setPreferredWidth(55);
+ 		table.table.getColumnModel().getColumn(4).setPreferredWidth(40);
  		
 	}
 	

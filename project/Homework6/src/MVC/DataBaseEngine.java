@@ -256,7 +256,7 @@ public class DataBaseEngine {
   //debug
 //  public static void main(String[] args) {
 //    DataBaseEngine db = new DataBaseEngine();
-//    List<HouseType> ret = db.getResultByLocation("city hall", HouseOption.RESIDENTIAL);
+//    List<HouseType> ret = db.getResultByLocation("WALNUT", HouseOption.INDUSTRIAL);
 //    System.out.println(ret.size());
 //    for(HouseType house: ret) {
 //      System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());      
