@@ -18,8 +18,9 @@ public class Model {
 		isAscendent = 1;
 	}
 	
-	/*
-	 * update the view panel
+	/**
+	 * this method is used to update the houses in the view
+	 * @param result gives the houses to be updated
 	 */
 	public void update(ArrayList<HouseType> result){
 		this.houseList = result;
@@ -29,35 +30,40 @@ public class Model {
 		view.update(houseList);
 	}
 	
-	/*
-	 * this method is called only when the main page house type is changed
+	/**
+	 * this method is used to set house type of the search
+	 * @param type gives the house type
 	 */
 	public void setHouseType(String type){
 		houseType = type;
 	}
 	
-	/*
-	 * this method returns house type
+	/**
+	 * this method is used to get the house type
+	 * @return the house type
 	 */
 	public String getHouseType(){
 		return houseType;
 	}
 
-	/*
-	 * this method is called only when main page receive a new search, and stores the new house list here
+	/**
+	 * this method is used to set the house list of the model
+	 * @param house gives the houses to be stored in the model
 	 */
 	public void setHouseList(ArrayList<HouseType> house){
 		houseList = house;
 	}
 	
-	/*
-	 * this method returns house list.
+	
+	/**
+	 * this method is used to get the house lists of the model
+	 * @return the house list
 	 */
 	public ArrayList<HouseType> getHouseList(){
 		return houseList;
 	}
 	
-	/*
+	/**
 	 * this method set the ascendent information for sorting order
 	 */
 	public void setIsAscendent(boolean flag){
