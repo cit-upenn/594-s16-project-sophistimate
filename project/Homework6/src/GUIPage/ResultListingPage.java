@@ -108,6 +108,12 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 		mainPanel.add(splitPane, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * this method initialize the google map pane by load the map.html
+	 * and set mark for the first house result on the map as well as add
+	 * action listener to each button. 
+	 * @param leftPane gives the pane on which the goolge map will be shown.
+	 */	
 	public void googleMapPane(JPanel leftPane){
 		browser = new Browser();		
 		browserView = new BrowserView(browser);
@@ -147,14 +153,23 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 	          "markers.push(marker);\n");		  
 		}
 	}
-	
+
+	/**
+	 * this method is used to clear the map with all the markers shown on it, and
+	 * reset the markers to null array for the loaded html file
+	 */
 	public void clearMap(){
 		browser.executeJavaScript("for(var i = 0; i < markers.length; i++) {\n" +
 				"markers[i].setMap(null);\n"+
 				"}\n"+"markers = [];\n");
 		
 	}
-	
+
+	/**
+	 * this method is used to set up property information for
+	 * filtering houses.
+	 * @return the pane with property spinners representing lower and upper bounds
+	 */	
 	public JPanel setPreference() {
 		JPanel pane = new JPanel();
 		livingAreaMin = setSpinner(0, 20, 2, 0);
@@ -208,7 +223,12 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 		
 		return pane;
 	}
-	
+
+	/**
+	 * this method is used to change the table information which shows rows of house information and the given attributes
+	 * of each house, user could click rows to see the exact location of the house 
+	 * @param result gives the input arraylist to be shown or updated on the table
+	 */	
 	public void changeTable(ArrayList<HouseType> result){
 		String[] columnNames = {"No.", "Address", "Zip", "Area(ft²)", "Year", "Sale($)", "Market($)", "Outdoor"};
 		Object[][] data = new Object[30][8];
@@ -226,20 +246,39 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
  		table.table.getColumnModel().getColumn(4).setPreferredWidth(40);
  		
 	}
-	
+
+	/**
+	 * this method is used to get the table of this frame
+	 * @return the table containing the house information
+	 */	
 	public Table getTable(){
 		return table;
 	}
-	
+
+	/**
+	 * This method is used to set the lower and upper bounds of each property
+	 * @param min gives the lower bounds of the property
+	 * @param max gives the upper bounds of the property
+	 * @param step gives the step value of each change
+	 * @param initValue gives the initial value
+	 * @return the set up JSpinner
+	 */	
 	public JSpinner setSpinner(int min, int max, int step, int initValue){
 		SpinnerModel model = new SpinnerNumberModel(initValue, min, max, step);
 		return new JSpinner(model);
 	}
 
+	/**
+	 * this method is used to set the model of this page
+	 * @param m gives the updated model
+	 */
 	public void setModel(Model m){
 		model = m;
 	}
-	
+
+	/**
+	 * this method is used to initialize the page
+	 */	
 	public void init(){
 //		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1100, 700);
@@ -249,21 +288,28 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 		
 		
 	}
-	
+
+	/**
+	 * this method is used to add action listener to certain components of this page, 
+	 * including filtering, sorting, show details and table rows clicking
+	 */	
 	public void addActionListeners(){
 		table.table.addMouseListener(new java.awt.event.MouseAdapter(){
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt){
 				int row = table.table.rowAtPoint(evt.getPoint());
+				//change the selected icon back to other houses				
 				if(currentHouse != null){
 			        browser.executeJavaScript("markers["+ lastRow +"].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')");
 				}
 				lastRow = row;
+				//change the icon of newly selected house to a flag
 				if(row >= 0 && row < retHouse.size()){
 					currentHouse = retHouse.get(row);
 					browser.executeJavaScript("markers["+ lastRow +"].setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')");
 					
 				}
+				//if select a null row, change current house to null
 				if(row >= retHouse.size()){
 					currentHouse = null;
 				}
@@ -275,7 +321,9 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 				
 			}
 		});
-		
+
+		//click handler for submit filter, gets information form user and collects result from model
+		//then mark the first 30 new results on the map 		
 	    submitFilter.addActionListener(new ActionListener(){
 	    	@Override
 	    	public void actionPerformed(ActionEvent e) {
@@ -303,13 +351,16 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 	    		
 	    	}
 	    });
-	    
+
+	    //click handler for sorting button
+	    //sort the houses with given property and order	    
 	    sortingSubmit.addActionListener(new ActionListener(){
 	    	@Override
 	    	public void actionPerformed(ActionEvent e) {
 	    		String selectionType = sortingType.getSelectedItem().toString();
 	    		String selection = sorting.getSelectedItem().toString();
-	    		
+
+	    		//gets the sorting order	    		
 	    		if(selectionType.equals("Descending")){
 	    			if(model.isAscendent()){
 	    				model.setIsAscendent(false);	    				
@@ -319,7 +370,8 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 	    				model.setIsAscendent(true);
 	    			}
 	    		}
-	    		
+
+	    		//gets the sorting property	    		
 	    		if(selection.equals("Built Year")){
 	    			retHouse = model.sorting(retHouse, "buildYear");
 	    		}else if(selection.equals("Outdoor Area")){
@@ -331,6 +383,8 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
 	    		}else if(selection.equals("Sales Price")){
 	    			retHouse = model.sorting(retHouse, "salePrice");
 	    		}
+	    		
+	    		//change basic information and markers
 	    		currentHouse = null;
 	    		clearMap();
 	    		changeTable(retHouse);
