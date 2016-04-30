@@ -43,6 +43,8 @@ public class ProgressBar extends JFrame{
 		  pbar.setBorderPainted(true);
 		  pbar.setStringPainted(true);
 		  
+		  
+		  this.setAlwaysOnTop(true);
 		  setVisible(true);
 		  setSize(300, 80);
 		  setLocationRelativeTo(null);
@@ -69,23 +71,23 @@ public class ProgressBar extends JFrame{
 							if( stopFlag ) {
 								pbar.setValue(100);
 								pbar.setString("100" + "%");
-								Thread.sleep(2000);
+								Thread.sleep(1000);
 								dispose();
 								break;
 							}
 							
-							Thread.sleep(600);
+							Thread.sleep(50);  /* Change the speed of the progress bar */
 						}
 						
 						while( k == pbar.getMaximum() ) {
 							if( stopFlag ) {
 								pbar.setValue(100);
 								pbar.setString("100" + "%");
-								Thread.sleep(2000);
+								Thread.sleep(1000);
 								dispose();
 								break;
 							}
-							Thread.sleep(500);
+//							Thread.sleep(100);
 						}
 						
 						return null;

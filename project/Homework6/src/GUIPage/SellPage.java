@@ -20,9 +20,16 @@ public class SellPage extends JFrame{
 	private JLabel background;
 	JTextField firstName;
 	JTextField lastName;
+	
 	JTextField location;
+	
+	JTextField StreetName;
+	JTextField houseNumber;
+	JTextField unit;
 	JTextField livingArea;
 	JTextField zipCode;
+	JTextField buildYear;
+	JComboBox parking;
 	JComboBox type;
 	JButton submit;
 	
@@ -57,13 +64,13 @@ public class SellPage extends JFrame{
 		textHolder.add(new JLabel("First Name:"));
 		textHolder.add(firstName);
 		textHolder.add(new JLabel("Last Name:"));
-		textHolder.add(lastName);		
+		textHolder.add(lastName);
 		textHolder.add(new JLabel("Zip Code:"));
 		textHolder.add(zipCode);
 		textHolder.add(new JLabel("Living Area(ft²):"));
-		textHolder.add(livingArea);		
+		textHolder.add(livingArea);
 		textHolder.add(new JLabel("Address:"));
-		textHolder.add(location);	
+		textHolder.add(location);
 		textHolder.add(new JLabel("House Type:"));
 		textHolder.add(type);
 		textHolder.add(submit);

@@ -138,9 +138,28 @@ public class BuyHomePage extends JFrame{
 		
 		if (!resultListing.isShowing()) {
 			resultListing.changeTable(result);
+			resultListing.clearMap();
+			resultListing.resetInfo(result);
+			resultListing.markMap();
 			resultListing.show();
+//			try {
+//				Thread.sleep(2000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+
 		} else {
 			resultListing.changeTable(result);
+//			try {
+//				Thread.sleep(2000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			resultListing.clearMap();
+			resultListing.resetInfo(result);
+			resultListing.markMap();
 		}
 	}
 	
@@ -227,15 +246,16 @@ public class BuyHomePage extends JFrame{
 				
 				@Override 
 				protected Void doInBackground() {
-					
+//					System.out.println("Here we are00");
+//					List<HouseType> result = new ArrayList<HouseType>();
 					DataBaseEngine db = new DataBaseEngine();
 	    			List<HouseType> result = db.getResultByLocation(locationInput.getText().trim(), type);
 	    			model.setHouseList( (ArrayList<HouseType>) result );
 	    			model.setHouseType( type.toString() );
 	    			
-	    			showPage( (ArrayList<HouseType>) result);
-	    			
 	    			pbarFrame.stop();
+	    			System.out.println("size is:" + result.size());
+	    			showPage( (ArrayList<HouseType>) result);
 	    			
 	    			System.out.println("size is:" + result.size());
 					return null;
