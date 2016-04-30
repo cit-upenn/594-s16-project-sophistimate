@@ -3,93 +3,93 @@ package House;
 import java.util.HashMap;
 
 public class Industrial extends HouseType{
-	private double outdoorArea;
-	private int basement;
-	private double parking;
+    private double outdoorArea;
+    private int basement;
+    private double parking;
 
-	public Industrial(HashMap<String, String> map){
-		key = map.get("Parcel Number");
-		type = map.get("Category Code Description");
-		
-		owner = map.get("Owner 1");
-		streetName = map.get("Street Name");
-		houseNumber = map.get("House Number");
-		unit = map.get("Unit");
-		livingArea = Double.parseDouble(map.get("Total Livable Area"));
-		zipCode = map.get("Zip Code");
-		buildYear = Integer.parseInt(map.get("Year Built"));
-		
-		salePrice = Double.parseDouble(map.get("Sale Price"));
-		saleDate = map.get("Sale Date");
-		marketValue = Double.parseDouble(map.get("Market Value"));
-		marketDate = map.get("Market Value Date");
-		
-		location = new Coordinate(map.get("Coordinates"));
-		outdoorArea = Double.parseDouble(map.get("Total Area"));
-		basement = Integer.parseInt(map.get("Basements"));
-		parking = Double.parseDouble(map.get("parking"));
-	}
+    public Industrial(HashMap<String, String> map){
+        key = map.get("Parcel Number");
+        type = map.get("Category Code Description");
+        
+        owner = map.get("Owner 1");
+        streetName = map.get("Street Name");
+        houseNumber = map.get("House Number");
+        unit = map.get("Unit");
+        livingArea = Double.parseDouble(map.get("Total Livable Area"));
+        zipCode = map.get("Zip Code");
+        buildYear = Integer.parseInt(map.get("Year Built"));
+        
+        salePrice = Double.parseDouble(map.get("Sale Price"));
+        saleDate = map.get("Sale Date");
+        marketValue = Double.parseDouble(map.get("Market Value"));
+        marketDate = map.get("Market Value Date");
+        
+        location = new Coordinate(map.get("Coordinates"));
+        outdoorArea = Double.parseDouble(map.get("Total Area"));
+        basement = Integer.parseInt(map.get("Basements"));
+        parking = Double.parseDouble(map.get("parking"));
+    }
 
-	/*
-	 * this method gets the outdoor area
-	 */
-	public double getOutdoorArea(){
-		return outdoorArea;
-	}
-	
-	/*
-	 * this method gets the basement information
-	 */
-	public int getBasement(){
-		return basement;
-	}
+    /*
+     * this method gets the outdoor area
+     */
+    public double getOutdoorArea(){
+        return outdoorArea;
+    }
+    
+    /*
+     * this method gets the basement information
+     */
+    public int getBasement(){
+        return basement;
+    }
 
-	/*
-	 * this method gets the parking coefficient
-	 */
-	public double parking(){
-		return parking;
-	}
+    /*
+     * this method gets the parking coefficient
+     */
+    public double parking(){
+        return parking;
+    }
 
-	@Override
-	public int getParking() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getParking() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public int getExterior() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getExterior() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public int getHeatType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getHeatType() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public boolean getCentralAir() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean getCentralAir() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public int getInterior() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getInterior() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public int getBedroom() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getBedroom() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public int getBathroom() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getBathroom() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

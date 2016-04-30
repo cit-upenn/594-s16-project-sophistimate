@@ -18,6 +18,9 @@ public class Model {
 		isAscendent = 1;
 	}
 	
+	/*
+	 * update the view panel
+	 */
 	public void update(ArrayList<HouseType> result){
 		this.houseList = result;
 		if ( view == null) {
@@ -62,6 +65,18 @@ public class Model {
 			isAscendent = 1;
 		}else{
 			isAscendent = 0;
+		}
+	}
+	
+	/**
+	 * this method is used to indicate whether the sorting order is ascendent or not
+	 * @return true if ascendent, false otherwise
+	 */
+	public boolean isAscendent(){
+		if(isAscendent == 1){
+			return true;
+		}else{
+			return false;
 		}
 	}
 	

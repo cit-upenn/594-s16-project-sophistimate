@@ -22,6 +22,7 @@ import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
 import org.bson.Document;
 
@@ -34,7 +35,8 @@ public class DataBaseEngine {
   private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
   
   public DataBaseEngine() {
-    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
+//    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
+    mongoClient = new MongoClient("localhost",27017);
     db = mongoClient.getDatabase(databaseName);
   }
   
@@ -43,7 +45,6 @@ public class DataBaseEngine {
    * @param location This is location keyword we pass into method, and get result based on location
    */
   public List<HouseType> getResultByLocation(String location, HouseOption type) {
-	long startTime = System.currentTimeMillis();
     List<HouseType> product = new ArrayList<>();
     //and(eq("Street Name", "WALNUT"), eq("Street Designation", "ST"), eq("Census Tract",7)
     try {
@@ -61,10 +62,13 @@ public class DataBaseEngine {
           and(com.mongodb.client.model.Filters.gte("Zip Code", downlimit), com.mongodb.client.model.Filters.lte("Zip Code", uplimit)),
           eq("Zip Code", downlimit/10000)
           ));
+      
       iterable.forEach(new Block<Document>() {
         @Override
-        public void apply(final Document document) {          
-          product.add(HouseConstructor(AttribMap(document)));//.get("Coordinates")          
+        public void apply(final Document document) {
+          if(document.getString("Category Code Description").equals(type.toString())){
+            product.add(HouseConstructor(AttribMap(document)));  //.get("Coordinates")    
+          }            
         }
       });
       if(product.isEmpty()) {
@@ -82,16 +86,36 @@ public class DataBaseEngine {
       
       //TO DO improved by indexing search
       iterable = db.getCollection(collectionName).find();
-      
+      PriorityQueue<HouseType> resultQueue = new PriorityQueue<HouseType>(30, new Comparator<HouseType>() {
+        @Override
+        public int compare(HouseType o1, HouseType o2) {
+          double d1 = crn.distance(new Coordinate("("+o1.getLocation()+")"));
+          double d2 = crn.distance(new Coordinate("("+o2.getLocation()+")"));
+          if(d1 > d2) {
+            return 1;
+          }
+          if(d1 < d2) {
+            return -1;
+          }
+          return 0;
+        }       
+      });
       iterable.forEach(new Block<Document>() {
         @Override
         public void apply(final Document document) { 
-          if(crn.distance(new Coordinate(document.getString("Coordinates"))) <= 1000 && document.getString("Category Code Description").equals(type.toString())) {
-            product.add(HouseConstructor(AttribMap(document)));
+          if(crn.distance(new Coordinate(document.getString("Coordinates"))) <= 1000 && document.getString("Category Code Description").equals(type.toString())) {        
+            resultQueue.add(HouseConstructor(AttribMap(document)));
           }        
         }
       });
-      
+      int count = 0;
+      while(!resultQueue.isEmpty() && count < 30) {
+        product.add(resultQueue.poll());
+        count ++;
+      }
+      if(!resultQueue.isEmpty()) {
+        product.addAll(resultQueue);
+      }   
     } 
     return product;
   }
@@ -232,13 +256,12 @@ public class DataBaseEngine {
   //debug
 //  public static void main(String[] args) {
 //    DataBaseEngine db = new DataBaseEngine();
-//    List<HouseType> ret = db.getResultByLocation("19104");
+//    List<HouseType> ret = db.getResultByLocation("city hall", HouseOption.RESIDENTIAL);
+//    System.out.println(ret.size());
 //    for(HouseType house: ret) {
-//      if(house instanceof Residential) {
-//      house = (Residential) house;
-//      System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());
-//      }       
+//      System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());      
 //    }
+//      
 //  }
   
 }
