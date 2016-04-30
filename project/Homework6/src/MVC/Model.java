@@ -215,6 +215,72 @@ public class Model {
 	}
 	
 	/**
+	 * this method is used to get the most similar houses with given build year and living area
+	 * @param buildYear gives the target build year of the house
+	 * @param livingArea gives the target living area of the house
+	 * @return an array list of 30 most similar houses, if not enough, just return these similar houses
+	 */
+	public ArrayList<HouseType> filteringSellHouse(int buildYear, double livingArea){
+		int byLow;
+		int byHigh;
+		double laLow;
+		double laHigh;
+		ArrayList<HouseType> retHouses = new ArrayList<HouseType>();
+		for(int i = 1; i <= 5; i++){
+			//build year range will expand 3 years in each loop
+			byLow = buildYear - i * 3;
+			byHigh = buildYear + i * 3;
+			//living area rang will expand 0.05 percent in each loop
+			laLow = livingArea * (1 - 0.05 * i);
+			laHigh = livingArea * (1 + 0.05 * i);
+			for(int j = 0; j < houseList.size();j++){
+				HouseType temp = houseList.get(i);
+				if(temp.getBuildYear() >= byLow && temp.getBuildYear() <= byHigh && temp.getLivingArea() >= laLow && temp.getLivingArea() <= laHigh){
+					if(!retHouses.contains(temp)){
+						retHouses.add(temp);
+					}
+				}
+			}
+			if(retHouses.size() >= 30){
+				retHouses = getSpecifiedHouses(retHouses, 0, 29); 
+				retHouses = sorting(retHouses,"salePrice");
+				return retHouses;
+			}
+		}
+		retHouses = sorting(retHouses,"salePrice");
+		return retHouses;
+	}
+	
+	/**
+	 * this method is used to get the estimated price of the house to be sold from similar houses
+	 * @param similarHouses gives an array list of houses which is similar to the sold house
+	 * @return the estimated price
+	 */
+	public double getPrice(ArrayList<HouseType> similarHouses){
+		double totalPrice = 0;
+		int number = similarHouses.size();
+		if(number < 10){
+			for(int i = 0; i < number; i++){
+				totalPrice = totalPrice + similarHouses.get(i).getSalePrice();
+			}
+			if(totalPrice == 0){
+				return 0;
+			}else{
+				return totalPrice/number;
+			}			
+		}else{
+			int median = number/2;
+			for(int i = median - 5; i < median + 5; i++){
+				totalPrice = totalPrice + similarHouses.get(i).getSalePrice();
+			}
+		}
+		return totalPrice/10;
+	}
+	
+	
+	
+	
+	/**
 	 * This method is used to get the ranking of a certain house in a
 	 * sorted array-list of the houses
 	 * @param houses gives an array-list with object type HouseType
