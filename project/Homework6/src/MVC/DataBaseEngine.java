@@ -32,11 +32,11 @@ public class DataBaseEngine {
   private FindIterable<Document> iterable;
   private final String databaseName = "cit594";
   private final String collectionName = "proj";
-//  private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
+  private final String URIaddress = "mongodb://52.22.212.86:27017";
   
   public DataBaseEngine() {
-//    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
-    mongoClient = new MongoClient("localhost",27017);
+    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
+//    mongoClient = new MongoClient("localhost",27017);
     db = mongoClient.getDatabase(databaseName);
   }
   
