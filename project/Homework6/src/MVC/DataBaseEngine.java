@@ -5,6 +5,7 @@ import GUIPage.BuyHomePage.HouseOption;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.MongoCredential;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -32,7 +33,7 @@ public class DataBaseEngine {
   private FindIterable<Document> iterable;
   private final String databaseName = "cit594";
   private final String collectionName = "proj";
-  private final String URIaddress = "mongodb://52.22.212.86:27017";
+  private final String URIaddress = "mongodb://hany:cis550Unicorn@52.22.212.86:27017/?authSource=cit594";
   
   public DataBaseEngine() {
     mongoClient = new MongoClient(new MongoClientURI(URIaddress));
