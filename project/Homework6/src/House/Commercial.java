@@ -2,6 +2,11 @@ package House;
 
 import java.util.HashMap;
 
+/**
+ * This is class to define Commercial class
+ * @author Sophisitimate
+ *
+ */
 public class Commercial extends HouseType{
     private double outdoorArea;
     private int parking;
@@ -10,8 +15,9 @@ public class Commercial extends HouseType{
     private boolean centralAir;
     private int interior;
     
-    /*
-     * initialize the commercial or hotel with each attributes getting the value 
+    /**
+     * initialize the commercial or hotel with each attributes getting the value
+     *
      */
     public Commercial(HashMap<String, String> map){
         key = map.get("Parcel Number");
@@ -41,42 +47,42 @@ public class Commercial extends HouseType{
         
     }
     
-    /*
+    /**
      * this method returns the outdoor area
      */
     public double getOutdoorArea(){
         return outdoorArea;
     }
     
-    /*
+    /**
      * this method gets the parking coefficient
      */
     public int getParking(){
         return parking;
     }
     
-    /*
+    /**
      * this method gets the exterior quality
      */
     public int getExterior(){
         return exterior;
     }
     
-    /*
+    /**
      * this method gets the heat type
      */
     public int getHeatType(){
         return heatType;
     }
     
-    /*
+    /**
      * this method gets whether there is central air condition
      */
     public boolean getCentralAir(){
         return centralAir;
     }
 
-    /*
+    /**
      * this method gets the interior quality
      */
     public int getInterior(){
