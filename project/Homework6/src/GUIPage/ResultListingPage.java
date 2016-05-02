@@ -32,7 +32,7 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
     private JSpinner salePriceMax;//upper bound for sale price
     private JSpinner marketValueMin;//lower bound for market value
     private JSpinner marketValueMax;//upper bound for market value
-    private JComboBox parkingLot;//indicator for parking lot
+    private JComboBox<String> parkingLot;//indicator for parking lot
     private JLabel resultDetail;//detail button
     private JButton submitFilter;//submit button for filtering
     private Table table;//display table
@@ -49,8 +49,8 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
     private Browser browser;//browser for opening google map
     private BrowserView browserView;
     
-    private JComboBox sorting;//gives sorting attribute
-    private JComboBox sortingType;//indicate ascending or descending
+    private JComboBox<String> sorting;//gives sorting attribute
+    private JComboBox<String> sortingType;//indicate ascending or descending
     private JButton sortingSubmit;//sorting submit
     
     /**

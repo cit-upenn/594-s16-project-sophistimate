@@ -37,7 +37,7 @@ public class SellPage extends JFrame{
 	JTextField zipCode;
 	JTextField buildYear;
 	JComboBox parking;
-	JComboBox type;
+	JComboBox<String> type;
 	JButton submit;
 	
 	/**

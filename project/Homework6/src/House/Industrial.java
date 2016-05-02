@@ -2,6 +2,10 @@ package House;
 
 import java.util.HashMap;
 
+/**
+ * @author Sophi
+ *
+ */
 public class Industrial extends HouseType{
     private double outdoorArea;
     private int basement;
