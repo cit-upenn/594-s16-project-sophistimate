@@ -1,6 +1,7 @@
 package GUIPage;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -52,8 +53,13 @@ public class DetailPage extends JFrame{
 		detailLabel = new JLabel("This is the area for detailed information");
 		titleLabel = new JLabel("This is the area for title information");
 		detailLabel.setPreferredSize(new Dimension(500, 280));
+//		detailLabel.setBackground(Color.blue);
+		
 		bottomPart.add(titleLabel, BorderLayout.CENTER);
 		bottomPart.add(detailLabel, BorderLayout.SOUTH);
+		
+		bottomPart.setPreferredSize(new Dimension(500, 1200));
+//		bottomPart.setBackground(Color.red);
 		
 		setLabelText();
 		
@@ -103,28 +109,66 @@ public class DetailPage extends JFrame{
 		titleLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		
 		title.append("<html>");
-		title.append("<p style=\"line-height:50%\"><b><h2>" + currentHouse.getHouseNumber() + " " + currentHouse.getStreetName() + "</h2></b><br>");
-		title.append("<h3>Philadelphia, PA " + currentHouse.getZipCode() + "</h3><br>");
-		title.append("<h3>Type: " + currentHouse.getType().toString() + "</h3></p></html>");
+		title.append("<p><b><big>" + currentHouse.getHouseNumber() + " " + currentHouse.getStreetName() + "<big></b><br>");
+		title.append("Philadelphia, PA " + currentHouse.getZipCode().substring(0, 5) + "-" + currentHouse.getZipCode().substring(5) + "<br>");
+		title.append("Type: " + currentHouse.getType().toString() + "</p></html>");
 		
 		titleLabel.setText(title.toString());
-		detailLabel.setText(details.toString());
+		
+		details.append("<html>");
+		
+		String whiteSpace = "";
+		for( int i = 0; i < 80; i++){
+			whiteSpace += "&nbsp";
+		}
 		
 		if ( currentHouse.getType().equals( HouseOption.RESIDENTIAL.toString() ) ){
-			
+			details.append("-Owner: " + currentHouse.getOwner() + "&#9"  + (currentHouse.getOwner().length() < 12?"&#9":"") + "-Build Year: " + currentHouse.getBuildYear() + "<br>");
+			details.append("-Street: " + currentHouse.getStreetName() + "&#9;&#9;" + "-House Number: " + currentHouse.getHouseNumber() + "<br>");
+			details.append("-Unit " + currentHouse.getUnit() + "&#9;&#9;&#9;" + "-Living Area(ft²): " + currentHouse.getLivingArea() + "<br>");
+			details.append("-Sales Price($): " + currentHouse.getSalePrice() + "&#9" + "-Sale Date: " + currentHouse.getSaleDate() + "<br>");
+			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
+			details.append("-ParkingLots: " + currentHouse.getParking() + "&#9;&#9;" + "-Central Air: " + (currentHouse.getCentralAir()?"Yes":"No") + "<br>");
+			details.append("-BedRoom : " + currentHouse.getBedroom() + "&#9;&#9;" + "-BathRoom: " + currentHouse.getBathroom() + "<br>");
+			details.append("-Basement: " + currentHouse.getBasement() + "&#9;&#9;" + "-Interior Rating: " + currentHouse.getInterior() + "<br>");
+//			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
+
+			details.append(" " + whiteSpace + "&#9" + whiteSpace + "<br>");
 		}
 		
 		if ( currentHouse.getType().equals( HouseOption.COMMERCIAL.toString() ) ){
-			
+			details.append("-Owner: " + currentHouse.getOwner() + "&#9"  + (currentHouse.getOwner().length() < 12?"&#9":"") + "-Build Year: " + currentHouse.getBuildYear() + "<br>");
+			details.append("-Street: " + currentHouse.getStreetName() + "&#9;&#9;" + "-House Number: " + currentHouse.getHouseNumber() + "<br>");
+			details.append("-Unit " + currentHouse.getUnit() + "&#9;&#9;&#9;" + "-Living Area(ft²): " + currentHouse.getLivingArea() + "<br>");
+			details.append("-Sales Price($): " + currentHouse.getSalePrice() + "&#9" + "-Sale Date: " + currentHouse.getSaleDate() + "<br>");
+			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
+			details.append("-ParkingLots: " + currentHouse.getParking() + "&#9;&#9;" + "-Central Air: " + (currentHouse.getCentralAir()?"Yes":"No") + "<br>");
+			details.append("-BedRoom : " + currentHouse.getBedroom() + "&#9;&#9;" + "-BathRoom: " + currentHouse.getBathroom() + "<br>");
+			details.append("-Basement: " + currentHouse.getBasement() + "&#9;&#9;" + "-Interior Rating: " + currentHouse.getInterior() + "<br>");
+//			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
+
+			details.append(" " + whiteSpace + "&#9" + whiteSpace + "<br>");
 		}
 		
 		if ( currentHouse.getType().equals( HouseOption.INDUSTRIAL.toString() ) ){
-			
+			details.append("-Owner: " + currentHouse.getOwner() + "&#9"  + (currentHouse.getOwner().length() < 12?"&#9":"") + "-Build Year: " + currentHouse.getBuildYear() + "<br>");
+			details.append("-Street: " + currentHouse.getStreetName() + "&#9;&#9;" + "-House Number: " + currentHouse.getHouseNumber() + "<br>");
+			details.append("-Unit " + currentHouse.getUnit() + "&#9;&#9;&#9;" + "-Living Area(ft²): " + currentHouse.getLivingArea() + "<br>");
+			details.append("-Sales Price($): " + currentHouse.getSalePrice() + "&#9" + "-Sale Date: " + currentHouse.getSaleDate() + "<br>");
+			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
+			details.append("-ParkingLots: " + currentHouse.getParking() + "&#9;&#9;" + "-Central Air: " + (currentHouse.getCentralAir()?"Yes":"No") + "<br>");
+			details.append("-BedRoom : " + currentHouse.getBedroom() + "&#9;&#9;" + "-BathRoom: " + currentHouse.getBathroom() + "<br>");
+			details.append("-Basement: " + currentHouse.getBasement() + "&#9;&#9;" + "-Interior Rating: " + currentHouse.getInterior() + "<br>");
+//			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
+
+			details.append(" " + whiteSpace + "&#9" + whiteSpace + "<br>");
 		}
+		details.append("</html>");
+		detailLabel.setText(details.toString());
 	}
 	
 //	public static void main(String[] args) {
-//		DetailPage dp = new DetailPage();
+//		DetailPage dp = new DetailPage(new Industrial());
 //
 //	}
 

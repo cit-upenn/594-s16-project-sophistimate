@@ -80,11 +80,11 @@ public class LocationLookUpMap {
   }
   
   /**
-   * This is method only used in this class
+   * This is method used to get the coordinates by google map.
    * @param location
    * @return
    */
-  private String getCoordinateByGoogle(String location)
+  public String getCoordinateByGoogle(String location)
   {
     String ret = null;
     GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyA37ATERCyi0vb1B80cXpJDavxwC7PUZ_k");

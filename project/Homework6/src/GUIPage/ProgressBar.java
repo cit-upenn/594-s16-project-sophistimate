@@ -71,7 +71,7 @@ public class ProgressBar extends JFrame{
 							if( stopFlag ) {
 								pbar.setValue(100);
 								pbar.setString("100" + "%");
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								dispose();
 								break;
 							}
@@ -83,7 +83,7 @@ public class ProgressBar extends JFrame{
 							if( stopFlag ) {
 								pbar.setValue(100);
 								pbar.setString("100" + "%");
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								dispose();
 								break;
 							}

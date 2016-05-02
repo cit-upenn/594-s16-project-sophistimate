@@ -33,10 +33,11 @@ public class DataBaseEngine {
   private final String databaseName = "cit594";
   private final String collectionName = "proj";
 //  private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
+  private final String URIaddress = "mongodb://52.22.212.86:27017";
   
   public DataBaseEngine() {
-//    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
-    mongoClient = new MongoClient("localhost",27017);
+    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
+//    mongoClient = new MongoClient("localhost",27017);
     db = mongoClient.getDatabase(databaseName);
   }
   
@@ -237,7 +238,7 @@ public class DataBaseEngine {
     map.put("Sale Date", document.getString("Sale Date"));
     map.put("Market Value", parseObject(document.get("Market Value")));
     map.put("Market Value Date", document.getString("Market Value Date"));
-    map.put("Coordinates", document.getString("Coordinates"));
+    map.put("Coordinates", document.getString("Coor2dinates"));
     map.put("Total Area", parseObject(document.get("Total Area")));
     map.put("Category Code", parseObject(document.get("Category Code")));     
     map.put("Basements", parseBasement(document.get("Basements")));     

@@ -26,6 +26,7 @@ public class SellPage extends JFrame{
 	JTextField StreetName;
 	JTextField houseNumber;
 	JTextField unit;
+	
 	JTextField livingArea;
 	JTextField zipCode;
 	JTextField buildYear;
