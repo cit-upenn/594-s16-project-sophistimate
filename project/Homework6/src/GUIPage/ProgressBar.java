@@ -6,7 +6,8 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 /**
- * This is class used to create a progress bar to show 
+ * This is class used to create a progress bar to show
+ * 
  * @author Sophisitimate
  *
  */
@@ -27,14 +28,6 @@ public class ProgressBar extends JFrame {
    */
   public void initProgressBar() {
     final int PROGRESS_MINIMUM = 0;
-
-    final int PROGRESS_MAXIMUM = 100;
-    // initialize Progress Bar
-    pbar = new JProgressBar();
-
-    pbar.setMinimum(PROGRESS_MINIMUM);
-    pbar.setMaximum(PROGRESS_MAXIMUM);
-    pbar.setValue(0);
 
     setLayout(new BorderLayout());
     // add to JPanel
@@ -64,7 +57,9 @@ public class ProgressBar extends JFrame {
 
   /**
    * This is method to update progress bar to show new percentage
-   * @param newValue the new value we will show in our progress bar
+   * 
+   * @param newValue
+   *          the new value we will show in our progress bar
    */
   public void updateBar(int newValue) {
     pbar.setValue(newValue);
@@ -95,10 +90,10 @@ public class ProgressBar extends JFrame {
             break;
           }
 
-          Thread.sleep(50); /* Change the speed of the progress bar */
+          Thread.sleep(10); /* Change the speed of the progress bar */
         }
 
-        while (k == pbar.getMaximum() - 1) {
+        while (k == pbar.getMaximum()) {
           if (stopFlag) {
             pbar.setValue(100);
             pbar.setString("100" + "%");
@@ -106,7 +101,7 @@ public class ProgressBar extends JFrame {
             dispose();
             break;
           }
-          // Thread.sleep(100);
+          Thread.sleep(10);
         }
 
         return null;
@@ -118,7 +113,7 @@ public class ProgressBar extends JFrame {
   }
 
   /**
-   *  This is class to stop showing progress bar
+   * This is class to stop showing progress bar
    */
   public void stop() {
     stopFlag = true;

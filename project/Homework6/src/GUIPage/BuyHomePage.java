@@ -1,5 +1,4 @@
 package GUIPage;
-
 import MVC.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -54,7 +53,7 @@ public class BuyHomePage extends JFrame {
   /**
    * 
    * @author Sophisitimate
-   *
+   * This is enum class for 3 options
    */
   public enum HouseOption {
     RESIDENTIAL, COMMERCIAL, INDUSTRIAL

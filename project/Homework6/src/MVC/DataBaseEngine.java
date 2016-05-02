@@ -34,11 +34,11 @@ public class DataBaseEngine {
   private final String databaseName = "cit594";
   private final String collectionName = "proj";
 //  private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
-  private final String URIaddress = "mongodb://52.22.212.86:27017";
+//  private final String URIaddress = "mongodb://52.22.212.86:27017";
   
   public DataBaseEngine() {
-    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
-//    mongoClient = new MongoClient("localhost",27017);
+//    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
+    mongoClient = new MongoClient("localhost",27017);
     db = mongoClient.getDatabase(databaseName);
   }
   
@@ -258,12 +258,14 @@ public class DataBaseEngine {
   //debug
   public static void main(String[] args) {
     DataBaseEngine db = new DataBaseEngine();
+
     List<HouseType> ret = db.getResultByLocation("WALNUT", HouseOption.RESIDENTIAL);
     System.out.println(ret.size());
     for(HouseType house: ret) {
       System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());      
     }
 //      
+
   }
   
 }
