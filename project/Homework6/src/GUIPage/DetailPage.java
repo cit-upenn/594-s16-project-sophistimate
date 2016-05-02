@@ -143,8 +143,8 @@ public class DetailPage extends JFrame{
 			details.append("-Sales Price($): " + currentHouse.getSalePrice() + "&#9" + "-Sale Date: " + currentHouse.getSaleDate() + "<br>");
 			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
 			details.append("-ParkingLots: " + currentHouse.getParking() + "&#9;&#9;" + "-Central Air: " + (currentHouse.getCentralAir()?"Yes":"No") + "<br>");
-			details.append("-BedRoom : " + currentHouse.getBedroom() + "&#9;&#9;" + "-BathRoom: " + currentHouse.getBathroom() + "<br>");
-			details.append("-Basement: " + currentHouse.getBasement() + "&#9;&#9;" + "-Interior Rating: " + currentHouse.getInterior() + "<br>");
+			details.append("-Outdoor Area(ft²) : " + currentHouse.getOutdoorArea() + "&#9;" + "-Heat: " + (currentHouse.getHeatType() == 0?"No": "Yes") + "<br>");
+			details.append("-Exterior Rating: " + currentHouse.getExterior() + "&#9;&#9;" + "-Interior Rating: " + currentHouse.getInterior() + "<br>");
 //			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
 
 			details.append(" " + whiteSpace + "&#9" + whiteSpace + "<br>");
@@ -156,9 +156,8 @@ public class DetailPage extends JFrame{
 			details.append("-Unit " + currentHouse.getUnit() + "&#9;&#9;&#9;" + "-Living Area(ft²): " + currentHouse.getLivingArea() + "<br>");
 			details.append("-Sales Price($): " + currentHouse.getSalePrice() + "&#9" + "-Sale Date: " + currentHouse.getSaleDate() + "<br>");
 			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
-			details.append("-ParkingLots: " + currentHouse.getParking() + "&#9;&#9;" + "-Central Air: " + (currentHouse.getCentralAir()?"Yes":"No") + "<br>");
-			details.append("-BedRoom : " + currentHouse.getBedroom() + "&#9;&#9;" + "-BathRoom: " + currentHouse.getBathroom() + "<br>");
-			details.append("-Basement: " + currentHouse.getBasement() + "&#9;&#9;" + "-Interior Rating: " + currentHouse.getInterior() + "<br>");
+			details.append("-ParkingLots: " + currentHouse.getParking() + "&#9;&#9;" + "-Outdoor Area(ft²) : " + currentHouse.getOutdoorArea() + "<br>");
+			details.append("-Basement: " + currentHouse.getBasement() + "&#9;&#9;" + " " + "<br>");
 //			details.append("-Market Value($): " + currentHouse.getMarketValue() + "&#9" + "-Market Date: " + currentHouse.getMarketDate() + "<br>");
 
 			details.append(" " + whiteSpace + "&#9" + whiteSpace + "<br>");

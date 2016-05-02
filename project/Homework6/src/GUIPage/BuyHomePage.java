@@ -247,6 +247,13 @@ public class BuyHomePage extends JFrame{
                 
             }
         });
+        
+        submit2.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	SellPage sp = new SellPage();
+            }
+        });
     }
     
     /**

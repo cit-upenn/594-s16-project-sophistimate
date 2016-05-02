@@ -8,7 +8,6 @@ public class Coordinate {
       
       public Coordinate(String location) throws NumberFormatException{
           
-        
         String[] coord = location.split(",");
         //May be improved by RegEx in the future, TO DO
         if(location.indexOf('(') == 0 && location.indexOf(')') == location.length()-1 && coord.length == 2) {

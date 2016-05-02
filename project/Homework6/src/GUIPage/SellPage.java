@@ -78,16 +78,16 @@ public class SellPage extends JFrame{
 		textHolder.setPreferredSize(new Dimension(500, 200));
 		this.add(textHolder);
 		this.pack();
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1100, 700);
+		setResizable(false);
+		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 	
-	public static void main(String[] args) {
-		SellPage sp = new SellPage();
-		sp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		sp.setSize(1100, 700);
-		sp.setResizable(false);
-		sp.setVisible(true);
-		sp.setLocationRelativeTo(null);
-
-	}
+//	public static void main(String[] args) {
+//		SellPage sp = new SellPage();
+//	}
 
 }
