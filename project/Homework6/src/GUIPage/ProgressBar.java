@@ -28,7 +28,8 @@ public class ProgressBar extends JFrame {
    */
   public void initProgressBar() {
     final int PROGRESS_MINIMUM = 0;
-
+    
+    pbar = new JProgressBar();
     setLayout(new BorderLayout());
     // add to JPanel
     JPanel p = new JPanel();
