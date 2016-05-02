@@ -5,24 +5,24 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 public class ProgressBar extends JFrame{
-	private JProgressBar pbar;
-	private boolean stopFlag = false;
-	
-	public ProgressBar(){
-		initProgressBar();
-		updateBar();
-	}
-	
-	public void initProgressBar(){
-		  final int PROGRESS_MINIMUM = 0;
+    private JProgressBar pbar;
+    private boolean stopFlag = false;
+    
+    public ProgressBar(){
+        initProgressBar();
+        updateBar();
+    }
+    
+    public void initProgressBar(){
+          final int PROGRESS_MINIMUM = 0;
 
-		  final int PROGRESS_MAXIMUM = 100;
-		  // initialize Progress Bar
-		  pbar = new JProgressBar();
+          final int PROGRESS_MAXIMUM = 100;
+          // initialize Progress Bar
+          pbar = new JProgressBar();
 
-		  pbar.setMinimum(PROGRESS_MINIMUM);
-		  pbar.setMaximum(PROGRESS_MAXIMUM);		  
-		  pbar.setValue(0);
+          pbar.setMinimum(PROGRESS_MINIMUM);
+          pbar.setMaximum(PROGRESS_MAXIMUM);          
+          pbar.setValue(0);
 
 		  setLayout(new BorderLayout());
 		  // add to JPanel

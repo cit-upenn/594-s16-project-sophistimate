@@ -70,29 +70,29 @@ public class DetailPage extends JFrame{
 		System.out.println(currentHouse.getType());
 	}
 
-	public JPanel googleMapPane(){
-		JPanel pane = new JPanel();
-		browser = new Browser();
-		browserView = new BrowserView(browser);
-		pane.setLayout(new BorderLayout());
-		pane.setSize(new Dimension(550, 500));
-		browserView.setSize(new Dimension(550, 500));
-		pane.add(browserView.getComponent(0), BorderLayout.CENTER);
-		
-		
-		File file = new File("");
-		String path = file.getAbsolutePath();
-		browser.loadURL("file://" + path + "/map.html");
-//		String location = currentHouse.getLocation();		
-//		browser.loadURL("https://maps.googleapis.com/maps/api/streetview?size=600x300&location="
-//				+ location + "&heading=151.78&pitch=-0.76&key=AIzaSyA14H3OSxJgCSUIlXcppWjb3P_2Qi6Hitc");
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String location = currentHouse.getLocation();
+    public JPanel googleMapPane(){
+        JPanel pane = new JPanel();
+        browser = new Browser();
+        browserView = new BrowserView(browser);
+        pane.setLayout(new BorderLayout());
+        pane.setSize(new Dimension(550, 500));
+        browserView.setSize(new Dimension(550, 500));
+        pane.add(browserView.getComponent(0), BorderLayout.CENTER);
+        
+        
+        File file = new File("");
+        String path = file.getAbsolutePath();
+        browser.loadURL("file://" + path + "/map.html");
+//      String location = currentHouse.getLocation();       
+//      browser.loadURL("https://maps.googleapis.com/maps/api/streetview?size=600x300&location="
+//              + location + "&heading=151.78&pitch=-0.76&key=AIzaSyA14H3OSxJgCSUIlXcppWjb3P_2Qi6Hitc");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        String location = currentHouse.getLocation();
         browser.executeJavaScript("var myLatLng = new google.maps.LatLng(" + location + ");\n"
 	            + "var marker = new google.maps.Marker({\n"+
 	            "position: myLatLng,\n"+
@@ -170,6 +170,6 @@ public class DetailPage extends JFrame{
 //	public static void main(String[] args) {
 //		DetailPage dp = new DetailPage(new Industrial());
 //
-//	}
+//  }
 
 }
