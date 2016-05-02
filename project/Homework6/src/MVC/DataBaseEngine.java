@@ -33,7 +33,8 @@ public class DataBaseEngine {
   private FindIterable<Document> iterable;
   private final String databaseName = "cit594";
   private final String collectionName = "proj";
-  private final String URIaddress = "mongodb://hany:cis550Unicorn@52.22.212.86:27017/?authSource=cit594";
+//  private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
+  private final String URIaddress = "mongodb://52.22.212.86:27017";
   
   public DataBaseEngine() {
     mongoClient = new MongoClient(new MongoClientURI(URIaddress));
@@ -257,7 +258,7 @@ public class DataBaseEngine {
   //debug
   public static void main(String[] args) {
     DataBaseEngine db = new DataBaseEngine();
-    List<HouseType> ret = db.getResultByLocation("WALNUT", HouseOption.INDUSTRIAL);
+    List<HouseType> ret = db.getResultByLocation("WALNUT", HouseOption.RESIDENTIAL);
     System.out.println(ret.size());
     for(HouseType house: ret) {
       System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());      
