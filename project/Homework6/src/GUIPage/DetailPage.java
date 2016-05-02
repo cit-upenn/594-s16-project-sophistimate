@@ -16,6 +16,11 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import GUIPage.BuyHomePage.HouseOption;
 import House.HouseType;
 
+/**
+ * This is class to show the detail page for each property
+ * @author Sophisimate
+ *
+ */
 public class DetailPage extends JFrame{
 	private BufferedImage img;
 	private JLabel detailLabel;
@@ -25,9 +30,15 @@ public class DetailPage extends JFrame{
 	private Browser streetBrowser;
 	private BrowserView streetView;
 	private HouseType currentHouse;
+	private String location;
 	
+	/**
+	 * This is constructor for detail page of homepage
+	 * @param house This is parameter for house type, used to generate detail page
+	 */
 	public DetailPage(HouseType house){
 		currentHouse = house;
+        location = currentHouse.getLocation();
 		this.setLayout(new BorderLayout());
 		JPanel bottomPart = new JPanel();
 		bottomPart.setLayout(new BorderLayout());
@@ -36,17 +47,16 @@ public class DetailPage extends JFrame{
 		splitPane.setDividerLocation(550);
 		splitPane.setEnabled( false );  /* The splitPane cannot be resized */
 		this.add(splitPane, BorderLayout.CENTER);
-//		currentHouse = house;
-		
-		try{
-			img = ImageIO.read(new File("Nice-Green-Home-Wallpaper-HD.jpg"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		JLabel picture = new JLabel(new ImageIcon(img));
+
+	    streetBrowser = new Browser();
+	    streetView = new BrowserView(streetBrowser);		
 		JPanel streetScape = new JPanel();
-		streetScape.add(picture);
+		streetScape.setLayout(new BorderLayout());
+        streetView.setPreferredSize(new Dimension(700, 700));
+		streetScape.add(streetView.getComponent(0), BorderLayout.CENTER);
 		streetScape.setPreferredSize(new Dimension(300, 300));
+		streetBrowser.loadURL("https://maps.googleapis.com/maps/api/streetview?size=600x300&location="
+      + location + "&heading=151.78&pitch=-0.76&key=AIzaSyA14H3OSxJgCSUIlXcppWjb3P_2Qi6Hitc");
 		
 		bottomPart.add(streetScape, BorderLayout.NORTH);	
 		
@@ -70,6 +80,10 @@ public class DetailPage extends JFrame{
 		System.out.println(currentHouse.getType());
 	}
 
+    /**
+     * This method used to generate googleMap panel 
+     * @return The Jpanel we want to display
+     */
     public JPanel googleMapPane(){
         JPanel pane = new JPanel();
         browser = new Browser();
@@ -82,8 +96,7 @@ public class DetailPage extends JFrame{
         
         File file = new File("");
         String path = file.getAbsolutePath();
-        browser.loadURL("file://" + path + "/map.html");
-//      String location = currentHouse.getLocation();       
+        browser.loadURL("file://" + path + "/map.html");     
 //      browser.loadURL("https://maps.googleapis.com/maps/api/streetview?size=600x300&location="
 //              + location + "&heading=151.78&pitch=-0.76&key=AIzaSyA14H3OSxJgCSUIlXcppWjb3P_2Qi6Hitc");
         try {
@@ -92,7 +105,6 @@ public class DetailPage extends JFrame{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        String location = currentHouse.getLocation();
         browser.executeJavaScript("var myLatLng = new google.maps.LatLng(" + location + ");\n"
 	            + "var marker = new google.maps.Marker({\n"+
 	            "position: myLatLng,\n"+
@@ -103,6 +115,9 @@ public class DetailPage extends JFrame{
 		return pane;
 	}
 	
+	/**
+	 * This is method used to set Label text field to show details of property.
+	 */
 	public void setLabelText(){
 		StringBuilder title = new StringBuilder();
 		StringBuilder details = new StringBuilder();

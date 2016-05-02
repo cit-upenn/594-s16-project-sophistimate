@@ -18,6 +18,11 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import GUIPage.BuyHomePage.HouseOption;
 
+/**
+ * This is class to show result list page
+ * @author Sophisimate
+ *
+ */
 public class ResultListingPage extends JFrame{    /* How to resolove conflicts */
     private JSpinner livingAreaMin;//lower bound for living area filtering
     private JSpinner livingAreaMax;//upper bound for living area filtering
@@ -48,6 +53,9 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
     private JComboBox sortingType;//indicate ascending or descending
     private JButton sortingSubmit;//sorting submit
     
+    /**
+     * This is ResultListingPage class constructor
+     */
     public ResultListingPage(){
         panelCreate();
         init();

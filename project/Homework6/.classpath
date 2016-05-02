@@ -2,19 +2,19 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/da_lib/mongodb-driver-core-3.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/da_lib/mongodb-driver-3.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/da_lib/bson-3.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/JxBrowerlib/license.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/JxBrowerlib/jxbrowser-win-6.3.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/JxBrowerlib/jxbrowser-mac-6.3.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/JxBrowerlib/jxbrowser-linux64-6.3.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/JxBrowerlib/jxbrowser-linux32-6.3.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/JxBrowerlib/jxbrowser-6.3.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/googleMapLib/okio-1.7.0.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/googleMapLib/okhttp-2.7.5.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/googleMapLib/joda-time-2.9.3.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/googleMapLib/gson-2.6.2.jar"/>
-	<classpathentry kind="lib" path="/Users/dongtianxiang/Documents/CIT 594/project/googleMapLib/google-maps-services-0.1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/bson-3.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/google-maps-services-0.1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/gson-2.6.2.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/joda-time-2.9.3.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/jxbrowser-6.3.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/jxbrowser-linux32-6.3.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/jxbrowser-linux64-6.3.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/jxbrowser-mac-6.3.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/jxbrowser-win-6.3.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/license.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/mongodb-driver-3.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/mongodb-driver-core-3.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/okhttp-2.7.5.jar"/>
+	<classpathentry kind="lib" path="/Users/apple/Documents/594-s16-project-sophistimate/project/lib/okio-1.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
