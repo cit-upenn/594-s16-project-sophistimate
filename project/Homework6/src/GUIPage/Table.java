@@ -5,6 +5,12 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 
+/**
+ * 
+ * This class used to showing results in result page
+ * @author Sophisitimate
+ *
+ */
 public class Table extends JFrame{
 	JTable table;
 	String[] columnNames = {"Number", "Location", "Owner", "Price"};		/* Initialization */
@@ -16,6 +22,9 @@ public class Table extends JFrame{
 			{"5", "3913 Pine", "Hanyu", "$1"}
 	};
 	
+	/**
+	 * This is constructor for Table class
+	 */
 	public Table(){
 		setLayout(new FlowLayout());
 		table = new JTable(this.data, this.columnNames);
@@ -25,6 +34,11 @@ public class Table extends JFrame{
 		table.setDefaultEditor(Object.class, null);    /* Set the table into non-editable */
 	}
 	
+	/**
+	 * This is constructor takes two args
+	 * @param columnNames This arg taken to show column names
+	 * @param data this 2D array showing all results in table
+	 */
 	public Table(String[] columnNames, Object[][] data){
 		setLayout(new FlowLayout());
 		table = new JTable(data, columnNames);
@@ -34,6 +48,11 @@ public class Table extends JFrame{
 		table.setDefaultEditor(Object.class, null);    /* Set the table into non-editable */
 	}
 	
+	/**
+	 * This is setter class takes two args
+	 * @param columnNames This arg taken to show column names
+	 * @param data this 2D array showing all results to fill the table
+	 */
 	public void setData(String[] columnNames, Object[][] data){   /* Change the content in the table */
 		this.columnNames = columnNames;
 		this.data = data;
@@ -47,6 +66,10 @@ public class Table extends JFrame{
 		tableModel.fireTableDataChanged();
 	}
 	
+	/**
+	 * This is class to put table in scrollable panel
+	 * @return return Scrollable panel
+	 */
 	public JScrollPane addTableComp(){
 		return new JScrollPane(table);
 	}
