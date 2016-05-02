@@ -48,7 +48,7 @@ public class LocationLookUpMap {
     
   }
   
-  public static LocationLookUpMap getInstance () {
+  public synchronized static LocationLookUpMap getInstance () {
     if(oneInstance == null) {
       oneInstance = new LocationLookUpMap();
     }
