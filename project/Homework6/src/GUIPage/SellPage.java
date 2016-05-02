@@ -15,6 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * This is class used to show sell page result page
+ * @author Sophisitimate
+ *
+ */
 public class SellPage extends JFrame{
 	private BufferedImage img;
 	private JLabel background;
@@ -34,6 +40,9 @@ public class SellPage extends JFrame{
 	JComboBox type;
 	JButton submit;
 	
+	/**
+	 * This is SellPage constructor
+	 */
 	public SellPage(){
 		try{
 			img = ImageIO.read(new File("niceNight.jpg"));

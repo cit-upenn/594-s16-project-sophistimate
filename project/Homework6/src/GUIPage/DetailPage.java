@@ -16,6 +16,11 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import GUIPage.BuyHomePage.HouseOption;
 import House.HouseType;
 
+/**
+ * This is class to show the detail page for each property
+ * @author Sophisimate
+ *
+ */
 public class DetailPage extends JFrame{
 	private BufferedImage img;
 	private JLabel detailLabel;
@@ -27,6 +32,10 @@ public class DetailPage extends JFrame{
 	private HouseType currentHouse;
 	private String location;
 	
+	/**
+	 * This is constructor for detail page of homepage
+	 * @param house This is parameter for house type, used to generate detail page
+	 */
 	public DetailPage(HouseType house){
 		currentHouse = house;
         location = currentHouse.getLocation();
@@ -71,6 +80,10 @@ public class DetailPage extends JFrame{
 		System.out.println(currentHouse.getType());
 	}
 
+    /**
+     * This method used to generate googleMap panel 
+     * @return The Jpanel we want to display
+     */
     public JPanel googleMapPane(){
         JPanel pane = new JPanel();
         browser = new Browser();
@@ -102,6 +115,9 @@ public class DetailPage extends JFrame{
 		return pane;
 	}
 	
+	/**
+	 * This is method used to set Label text field to show details of property.
+	 */
 	public void setLabelText(){
 		StringBuilder title = new StringBuilder();
 		StringBuilder details = new StringBuilder();

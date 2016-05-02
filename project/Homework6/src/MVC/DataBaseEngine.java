@@ -258,12 +258,14 @@ public class DataBaseEngine {
   //debug
   public static void main(String[] args) {
     DataBaseEngine db = new DataBaseEngine();
-    List<HouseType> ret = db.getResultByLocation("19104", HouseOption.INDUSTRIAL);
+
+    List<HouseType> ret = db.getResultByLocation("WALNUT", HouseOption.RESIDENTIAL);
     System.out.println(ret.size());
     for(HouseType house: ret) {
       System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());      
     }
-      
+//      
+
   }
   
 }

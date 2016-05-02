@@ -1,11 +1,21 @@
 package House;
 
+/**
+ * This class used to define coordinate 
+ * @author Sophisitimate
+ *
+ */
 public class Coordinate {
       private double latitude;
       private double longitude;
       private static LocationLookUpMap localLookUp;
       
       
+      /**
+       * This is constructor of Coordinate 
+       * @param location The location used to construct Coordinate
+       * @throws NumberFormatException throw exception when format is wrong
+       */
       public Coordinate(String location) throws NumberFormatException{
           
         String[] coord = location.split(",");
@@ -24,10 +34,18 @@ public class Coordinate {
         }
       }
       
+      /**
+       * This getter class to return Latitude of property
+       * @return Latitude
+       */
       public double getLatitude() {
         return latitude;
       }
       
+      /**
+       * This getter class to return Longitude of property
+       * @return Longitude
+       */
       public double getLongitude() {
         return longitude;
       }
