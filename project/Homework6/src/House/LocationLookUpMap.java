@@ -52,8 +52,8 @@ public class LocationLookUpMap {
   }
   
   /**
-   * This is method to get singleton
-   * @return singleton
+   * This is method to get singleton instance
+   * @return singleton instance to search location
    */
   public synchronized static LocationLookUpMap getInstance () {
     if(oneInstance == null) {
@@ -64,7 +64,7 @@ public class LocationLookUpMap {
   
   /**
    * Method used to return map stored in local
-   * @return
+   * @return map which stored in local memory
    */
   public Map<String, Coordinate> getMap() {
     return localLookUp;
@@ -72,8 +72,8 @@ public class LocationLookUpMap {
   
   /**
    * This is method for public use
-   * @param location
-   * @return
+   * @param location natural language denotes certain location
+   * @return Coordinate object
    */
   public Coordinate getCoordinate(String location) {
     Coordinate ret = localLookUp.get(location);
@@ -92,8 +92,8 @@ public class LocationLookUpMap {
   
   /**
    * This is method used to get the coordinates by google map.
-   * @param location
-   * @return
+   * @param location natural language to generate well format location info including longitude and latitude
+   * @return well format location info including longitude and latitude
    */
   public String getCoordinateByGoogle(String location)
   {
