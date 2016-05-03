@@ -2,6 +2,12 @@ package House;
 
 import java.util.HashMap;
 
+/**
+ * @author Sophisitimate
+ * This class is sub class Residential to extend abstract class HouseType
+ * 
+ *
+ */
 public class Residential extends HouseType{
     private int parking;
     private int exterior;
@@ -12,6 +18,10 @@ public class Residential extends HouseType{
     private int bathroom;
     private int basement;
     
+    /**
+     * This is residential class used to convert map kay value pair to Residential instance
+     * @param map source of data used to generate object
+     */
     public Residential(HashMap<String, String> map){
         key = map.get("Parcel Number");
         type = map.get("Category Code Description");
@@ -42,56 +52,56 @@ public class Residential extends HouseType{
     }
     
 
-    /*
+    /**
      * this method gets the parking coefficient
      */
     public int getParking(){
         return parking;
     }
 
-    /*
+    /**
      * this method gets the exterior quality
      */
     public int getExterior(){
         return exterior;
     }
 
-    /*
+    /**
      * this method gets the heat type
      */
     public int getHeatType(){
         return heatType;
     }
 
-    /*
+    /**
      * this method gets whether there is central air condition
      */
     public boolean getCentralAir(){
         return centralAir;
     }
 
-    /*
+    /**
      * this method gets interior quality
      */
     public int getInterior(){
         return interior;
     }
     
-    /*
+    /**
      * this method gets number of bedroom
      */
     public int getBedroom(){
         return bedroom;
     }
     
-    /*
+    /**
      * this method gets number of bedroom
      */
     public int getBathroom(){
         return bathroom;
     }
     
-    /*
+    /**
      * this method gets whether there is basement
      */
     public int getBasement(){
