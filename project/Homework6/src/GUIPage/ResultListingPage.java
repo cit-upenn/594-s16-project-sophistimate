@@ -25,6 +25,7 @@ import GUIPage.BuyHomePage.HouseOption;
  *
  */
 public class ResultListingPage extends JFrame{    /* How to resolove conflicts */
+
     protected JSpinner livingAreaMin;//lower bound for living area filtering
     protected JSpinner livingAreaMax;//upper bound for living area filtering
     protected JSpinner buildYearMin;//lower bound for build year 

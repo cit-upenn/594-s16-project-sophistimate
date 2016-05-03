@@ -2,7 +2,9 @@ package MVC;
 import org.bson.Document;
 import GUIPage.BuyHomePage.HouseOption;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
@@ -27,6 +29,11 @@ import java.util.*;
 
 import org.bson.Document;
 
+/**
+ * This is class used to fetch data from cloud server.
+ * @author Sophisitimate
+ *
+ */
 public class DataBaseEngine {
   private MongoClient mongoClient;
   private MongoDatabase db;
@@ -36,6 +43,9 @@ public class DataBaseEngine {
 //  private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
 //  private final String URIaddress = "mongodb://52.22.212.86:27017";
   
+  /**
+   * This is constructor for database engine
+   */
   public DataBaseEngine() {
 //    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
     mongoClient = new MongoClient("localhost",27017);
@@ -124,8 +134,8 @@ public class DataBaseEngine {
   
   /**
    * This is a constructor class for a general HouseType of different classes
-   * @param map
-   * @return
+   * @param map para used to generate all attribs of a housetype
+   * @return certain house type based on map we passing in.
    */
   private HouseType HouseConstructor(HashMap<String,String> map) {
     HouseType ret = null;
@@ -142,8 +152,8 @@ public class DataBaseEngine {
   
   /**
    * This is for parsing the object got from database, since document.getString() not work for Integer or Double object.
-   * @param o
-   * @return
+   * @param This object is passed by Mongodb document object 
+   * @return Well format String parsed by given object
    */
   private String parseObject(Object o) {
     String ret = null;
@@ -165,6 +175,11 @@ public class DataBaseEngine {
     return ret;
   }
   
+  /**
+   * This is for parsing the object got from database, since document.get() will return corresponding object.
+   * @param o This object is passed by Mongodb document object.
+   * @return Well format String parsed by given object
+   */
   private String parseHeat(Object o) {
     String ret = null;
     if(o instanceof String) {
@@ -180,6 +195,12 @@ public class DataBaseEngine {
     return ret;  
   }
   
+  /**
+   * This is for parsing the information about garage and offstreet parking slots got from database, 
+   * @param garage parking slots from garage data
+   * @param offSt parking slots from offstreet parking data
+   * @return well format parking slots string
+   */
   private String parseParking(Object garage, Object offSt) {
     int gag = 0;
     int off = 0;
@@ -196,6 +217,11 @@ public class DataBaseEngine {
     return Integer.toString(gag+off); 
   }
   
+  /**
+   * This is for parsing the basement data got from database.
+   * @param o object used to to be parsed to generate info about basement info
+   * @return well format return message 
+   */
   private String parseBasement(Object o) {
     String ret = null;
     if(o instanceof String) {
@@ -210,6 +236,11 @@ public class DataBaseEngine {
     return ret;
   }
   
+  /**
+   * This is for parsing the central air data got from database.
+   * @param o object used to to be parsed to generate info about central air info
+   * @return well format info about central air info
+   */
   private String parseCentralAir(Object o) {
     String ret = null;
     if(o instanceof String) {
@@ -224,6 +255,11 @@ public class DataBaseEngine {
     return ret;
   }
   
+  /**
+   * This is private method used to generate
+   * @param document The mongodb document used to generate Map  
+   * @return map which stores key value pair
+   */
   private HashMap<String, String> AttribMap(final Document document) {
     HashMap<String,String> map = new HashMap<>();
     map.put("Parcel Number", parseObject(document.get("Parcel Number")));
@@ -254,18 +290,31 @@ public class DataBaseEngine {
     
     return map;     
   }
+
+  /**
+   * This is method for selling page call that could insert data into database
+   * @param map para that used to generate key value pair
+   * @return ture if everything is fine
+   */
+  public boolean insertData(Map<String, String> map) {
+    Document doc = new Document();
+    for (String key:map.keySet()) {
+      doc.append(key, map.get(key));
+    }
+    db.getCollection("test").insertOne(doc); 
+    return true;
+  }
   
   //debug
-  public static void main(String[] args) {
-    DataBaseEngine db = new DataBaseEngine();
-
-    List<HouseType> ret = db.getResultByLocation("WALNUT", HouseOption.RESIDENTIAL);
-    System.out.println(ret.size());
-    for(HouseType house: ret) {
-      System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());      
-    }
-//      
-
-  }
+//  public static void main(String[] args) {
+//    DataBaseEngine db = new DataBaseEngine();
+//
+//    List<HouseType> ret = db.getResultByLocation("WALNUT", HouseOption.RESIDENTIAL);
+//    System.out.println(ret.size());
+//    for(HouseType house: ret) {
+//      System.out.println(house.getStreetName()+" "+house.getHouseNumber()+" "+house.getUnit()+" "+house.getZipCode());      
+//    }  
+//    
+//  }
   
 }

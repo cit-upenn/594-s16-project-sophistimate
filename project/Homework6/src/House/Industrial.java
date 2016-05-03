@@ -2,11 +2,20 @@ package House;
 
 import java.util.HashMap;
 
+/**
+ * This class is Industrial type property extends HouseType
+ * @author Sophisitimate 
+ *
+ */
 public class Industrial extends HouseType{
     private double outdoorArea;
     private int basement;
     private double parking;
 
+    /**
+     * This is Industrial class used to convert map kay value pair to Industrial instance
+     * @param map source of data used to generate object
+     */
     public Industrial(HashMap<String, String> map){
         key = map.get("Parcel Number");
         type = map.get("Category Code Description");
@@ -30,21 +39,21 @@ public class Industrial extends HouseType{
         parking = Double.parseDouble(map.get("parking"));
     }
 
-    /*
+    /**
      * this method gets the outdoor area
      */
     public double getOutdoorArea(){
         return outdoorArea;
     }
     
-    /*
+    /**
      * this method gets the basement information
      */
     public int getBasement(){
         return basement;
     }
 
-    /*
+    /**
      * this method gets the parking coefficient
      */
     public double parking(){

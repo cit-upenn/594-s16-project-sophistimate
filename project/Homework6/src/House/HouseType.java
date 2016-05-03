@@ -6,7 +6,7 @@ package House;
  * @author Sophisitimate
  *
  */
-public abstract class HouseType {
+public abstract class HouseType implements Houses{
     //identify fields
     protected String key;//unique key for each entry of house information 
     protected String type; //indicate the house type

@@ -100,6 +100,9 @@ public class SellPage extends JFrame{
 		this.setTitle("Survey Page");
 	}
 	
+	/**
+	 * This is init method used to initialize class varibles
+	 */
 	public void init(){
 		firstName = new JTextField();
 		firstName.setPreferredSize(new Dimension(150, 30));
@@ -131,6 +134,9 @@ public class SellPage extends JFrame{
 		submit.setPreferredSize(new Dimension(150, 40));
 	}
 	
+	/**
+	 * This is method used to fill textholder with content
+	 */
 	public void addToPane(){
 		textHolder.add(new JLabel("  First Name:"));
 		textHolder.add(firstName);
@@ -167,7 +173,10 @@ public class SellPage extends JFrame{
 		textHolder.setPreferredSize(new Dimension(500, 350));
 	}
 	
-	 public void addActionListeners(){
+	 /**
+	 * This 
+	 */
+	public void addActionListeners(){
 		 submit.addActionListener(new ActionListener(){
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
