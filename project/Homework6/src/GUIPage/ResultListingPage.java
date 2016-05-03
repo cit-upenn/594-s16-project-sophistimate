@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -24,41 +25,42 @@ import GUIPage.BuyHomePage.HouseOption;
  *
  */
 public class ResultListingPage extends JFrame{    /* How to resolove conflicts */
-    private JSpinner livingAreaMin;//lower bound for living area filtering
-    private JSpinner livingAreaMax;//upper bound for living area filtering
-    private JSpinner buildYearMin;//lower bound for build year 
-    private JSpinner buildYearMax;//upper bound for build year
-    private JSpinner salePriceMin;//lower bound for sale price
-    private JSpinner salePriceMax;//upper bound for sale price
-    private JSpinner marketValueMin;//lower bound for market value
-    private JSpinner marketValueMax;//upper bound for market value
-    private JComboBox parkingLot;//indicator for parking lot
-    private JLabel resultDetail;//detail button
-    private JButton submitFilter;//submit button for filtering
-    private Table table;//display table
-    private JPanel resultShow;//map display
+    protected JSpinner livingAreaMin;//lower bound for living area filtering
+    protected JSpinner livingAreaMax;//upper bound for living area filtering
+    protected JSpinner buildYearMin;//lower bound for build year 
+    protected JSpinner buildYearMax;//upper bound for build year
+    protected JSpinner salePriceMin;//lower bound for sale price
+    protected JSpinner salePriceMax;//upper bound for sale price
+    protected JSpinner marketValueMin;//lower bound for market value
+    protected JSpinner marketValueMax;//upper bound for market value
+    protected JComboBox parkingLot;//indicator for parking lot
+    protected JLabel resultDetail;//detail button
+    protected JButton submitFilter;//submit button for filtering
+    protected Table table;//display table
+    protected JPanel resultShow;//map display
     
-    private ArrayList<HouseType> retHouse;//house list after database searching and filtering
-    private HouseType currentHouse;//the selected house
-    private int lastRow;//the row selected in the table
-    private String path;//file path of map.html 
+    protected ArrayList<HouseType> retHouse;//house list after database searching and filtering
+    protected HouseType currentHouse;//the selected house
+    protected int lastRow;//the row selected in the table
+    protected String path;//file path of map.html 
     
-    private Model model;//model for the program
-    private View view;//the view panel
+    protected Model model;//model for the program
+    protected View view;//the view panel
     
-    private Browser browser;//browser for opening google map
-    private BrowserView browserView;
+    protected Browser browser;//browser for opening google map
+    protected BrowserView browserView;
     
-    private JComboBox sorting;//gives sorting attribute
-    private JComboBox sortingType;//indicate ascending or descending
-    private JButton sortingSubmit;//sorting submit
-    
+    protected JComboBox sorting;//gives sorting attribute
+    protected JComboBox sortingType;//indicate ascending or descending
+    protected JButton sortingSubmit;//sorting submit
+    protected JButton viewDetails; 
     /**
      * This is ResultListingPage class constructor
      */
     public ResultListingPage(){
-        panelCreate();
-        init();
+//        panelCreate();
+//        init();
+        this.setTitle("Result from Database");
     }
     
     /**
@@ -70,7 +72,7 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
         retHouse = model.getHouseList();
         panelCreate();
         init();
-
+        this.setTitle("Result from Database");
     }
     
     /**
@@ -96,9 +98,10 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
         resultDetail = new JLabel("The label used for displaying details");
         
         table = new Table();
-        resultShow.add(resultDetail, BorderLayout.NORTH);
+        viewDetails = new JButton("View Details");
+//        resultShow.add(resultDetail, BorderLayout.NORTH);
         resultShow.add(table.addTableComp(), BorderLayout.CENTER);
-        resultShow.add(new Button("View Details"), BorderLayout.SOUTH);
+        resultShow.add(viewDetails, BorderLayout.SOUTH);
         
         JSplitPane splitRightPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, setPreference(), resultShow);
         splitRightPane.setDividerLocation(200);
@@ -180,42 +183,64 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
      */ 
     public JPanel setPreference() {
         JPanel pane = new JPanel();
-        livingAreaMin = setSpinner(0, 20, 2, 0);
-        livingAreaMax = setSpinner(1, 20000, 100 , 2000);
-        buildYearMin = setSpinner(2, 20, 2 , 2);
-        buildYearMax = setSpinner(3, 20, 2 , 3);
-        salePriceMin = setSpinner(4, 20, 2 , 4);
-        salePriceMax = setSpinner(5, 20, 2 , 5);
-        marketValueMin = setSpinner(6, 20, 2 , 6);
-        marketValueMax = setSpinner(7, 20, 2 , 7);
-        pane.add(new JLabel("     Area (ft²):"));
+        livingAreaMin = setSpinner(0, 2000, 200, 500);
+        livingAreaMax = setSpinner(2000, 10000, 200, 2000);
+        buildYearMin = setSpinner(1900, 1970, 2 , 1950);
+        buildYearMax = setSpinner(1970, 2020, 2 , 2000);
+        salePriceMin = setSpinner(50000, 2000000, 50000 , 100000);
+        salePriceMax = setSpinner(2000000, 10000000, 100000 , 3000000);
+        marketValueMin = setSpinner(50000, 2000000, 50000 , 100000);
+        marketValueMax = setSpinner(2000000, 10000000, 100000 , 3000000);
+		String white1 = "";
+		String white2 = "";
+		for( int i = 0; i < 45; i++){
+			white1 += "&nbsp";
+		}
+		for( int i = 0; i < 12; i++){
+			white2 += "&nbsp";
+		}
+        JLabel whiteSpace1 = new JLabel();
+        JLabel whiteSpace2 = new JLabel();
+        JLabel whiteSpace3 = new JLabel();
+        JLabel whiteSpace4 = new JLabel();
+        
+        whiteSpace1.setText("<html>" + white1 + "</html>");
+        whiteSpace2.setText("<html>" + white2 + "</html>");
+        whiteSpace3.setText("<html>" + white1 + "</html>");
+        whiteSpace4.setText("<html>" + white2 + "</html>");
+        
+        pane.add(new JLabel("        Area (ft²):"));
         pane.add(new JLabel("from"));
         pane.add(livingAreaMin);
         pane.add(new JLabel("to"));
-        pane.add(livingAreaMax);        
+        pane.add(livingAreaMax);   
+        pane.add(whiteSpace1);
         
-        pane.add(new JLabel("           Sale Price($):"));
+        pane.add(new JLabel("        Sale Price($):"));
         pane.add(new JLabel("min"));
         pane.add(salePriceMin);
         pane.add(new JLabel("max"));
         pane.add(salePriceMax);
+        pane.add(whiteSpace2);
         
-        pane.add(new JLabel("    Built Year:"));
+        pane.add(new JLabel("        Built Year:"));
         pane.add(new JLabel("from"));
         pane.add(buildYearMin);
         pane.add(new JLabel("to"));
         pane.add(buildYearMax);
+        pane.add(whiteSpace3);
 
-        pane.add(new JLabel("     Market Value($):"));
+        pane.add(new JLabel("        Market Value($):"));
         pane.add(new JLabel("min"));
         pane.add(marketValueMin);
         pane.add(new JLabel("max"));
         pane.add(marketValueMax);
+        pane.add(whiteSpace4);
         
-        pane.add(new JLabel("Do you want a parking lot? "));
+        pane.add(new JLabel("      Do you want a parking lot? "));
         parkingLot = new JComboBox<String> (new String[] {"Yes", "No"});
         pane.add(parkingLot);
-        pane.add(new JLabel("                                      "));
+        pane.add(new JLabel("                "));
         
         submitFilter = new JButton("Search");
         pane.add(submitFilter);
@@ -227,6 +252,7 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
         pane.add(sortingType);
         
         sortingSubmit = new JButton("Sorting");
+        pane.add(new JLabel("                 "));
         pane.add(sortingSubmit);
         
         return pane;
@@ -399,7 +425,24 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
                 markMap();
             }
         });
+        
+        viewDetails.addActionListener(new ActionListener(){    /* The same effect as double click on JTable */
+            @Override
+            public void actionPerformed(ActionEvent e) {               
+                SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() {
+                        if( currentHouse != null ) {
+                            DetailPage dp = new DetailPage(currentHouse);
+                        }
+                        return null;
+                    }
+                  };
+                  worker.execute();           
+            }
+        });
     }
+
     
 //  public static void main(String[] args) {
 //    JPanel abc = new JPanel();

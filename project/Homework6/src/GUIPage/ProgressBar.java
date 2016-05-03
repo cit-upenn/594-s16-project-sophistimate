@@ -21,6 +21,7 @@ public class ProgressBar extends JFrame {
   public ProgressBar() {
     initProgressBar();
     updateBar();
+//    this.setTitle("Data Processing");
   }
 
   /**
@@ -91,7 +92,7 @@ public class ProgressBar extends JFrame {
             break;
           }
 
-          Thread.sleep(10); /* Change the speed of the progress bar */
+          Thread.sleep(300); /* Change the speed of the progress bar */
         }
 
         while (k == pbar.getMaximum()) {

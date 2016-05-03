@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -18,6 +22,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
+
+import GUIPage.BuyHomePage.HouseOption;
+import House.HouseType;
+import House.LocationLookUpMap;
+import MVC.DataBaseEngine;
+import MVC.Model;
 
 /**
  * 
@@ -28,26 +39,32 @@ import javax.swing.JTextField;
 public class SellPage extends JFrame{
 	private BufferedImage img;
 	private JLabel background;
-	JTextField firstName;
-	JTextField lastName;
+	private Model model;
+	private JTextField firstName;
+	private JTextField lastName;
 	
-	JTextField location;
+	private JTextField location;
 	
-	JTextField streetName;
-	JTextField houseNumber;
-	JTextField unit;
+	private JTextField streetName;
+	private JTextField houseNumber;
+	private JTextField unit;
 	
-	JTextField livingArea;
-	JTextField outdoorArea;
-	JTextField zipCode;
-	JTextField buildYear;
-	JComboBox parking;
-	JComboBox basement;
-	JComboBox centralAir;
-	JComboBox heat;
-	JComboBox type;
-	JButton submit;
-	JPanel textHolder;
+	private JTextField livingArea;
+	private JTextField outdoorArea;
+	private JTextField zipCode;
+	private JTextField buildYear;
+	private JComboBox parking;
+	private JComboBox basement;
+	private JComboBox centralAir;
+	private JComboBox heat;
+	private JComboBox type;
+	private JButton submit;
+	private JPanel textHolder;
+	
+	private ProgressBar pbarFrame;
+	private ResultListingPage resultListing;
+	
+	private HouseOption type1;
 	
 	/**
 	 * This is SellPage constructor
@@ -80,6 +97,7 @@ public class SellPage extends JFrame{
 		setLocationRelativeTo(null);
 		
 		addActionListeners();
+		this.setTitle("Survey Page");
 	}
 	
 	public void init(){
@@ -161,12 +179,13 @@ public class SellPage extends JFrame{
 	            		JOptionPane.showMessageDialog(getContentPane(), "Please complete all the information!! Enter 0 for inapplicable blanks!!", 
 	                            "Error Message", JOptionPane.INFORMATION_MESSAGE);
 	            	} else {
-	            		String[] label = {"House Number", "Unit", "Living Area", "Outdoor Area", "Built Year"};
+	            		String[] label = {"House Number", "Unit", "Living Area", "Outdoor Area", "Built Year", "Zip Code"};
 	            		int houseNum;
 	            		int unitNum;
 	            		double living;
 	            		double outdoor;
 	            		int build;
+	            		int zip;
 	            		int count = 0;
 	            		try{
 	            			houseNum = new Integer(houseNumber.getText().trim());
@@ -178,21 +197,123 @@ public class SellPage extends JFrame{
 	            			outdoor = new Double(outdoorArea.getText().trim());
 	            			count++;
 	            			build = new Integer(buildYear.getText().trim());
+	            			count++;
+	            			zip = new Integer(zipCode.getText().trim());
 	            		} catch (NumberFormatException error){
 	            			JOptionPane.showMessageDialog(getContentPane(), "Please enter only numbers for " + label[count], 
 		                            "Input Format Error Message", JOptionPane.INFORMATION_MESSAGE);
 	            			return ;   // finish the event when the Message Dialog has been displayed.
 	            		}
 	            		
+	            		String typeString = type.getSelectedItem().toString();
+	            		if(typeString.equals("Residential")){
+	            			type1 = HouseOption.RESIDENTIAL;
+	            		}else if(typeString.equals("Commercial")){
+	            			type1 = HouseOption.COMMERCIAL;
+	            		}else if(typeString.equals("Industrial")){
+	            			type1 = HouseOption.INDUSTRIAL;
+	            		}
+	            		
+	                    if (pbarFrame != null)
+	                        pbarFrame.dispose();
+
+	                      pbarFrame = new ProgressBar();
+	                      swingWorker(typeString, build, living);
 	            		
 	            		
 	            	}
 	            }
 		 });
 	 }
-	
-	public static void main(String[] args) {
-		SellPage sp = new SellPage();
+	 
+	public void swingWorker(String typeString, int build, double living) {
+		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+
+			@Override
+			protected Void doInBackground() {
+				/* Related real estate list & estimated price */
+				String location = streetName.getText().trim() + houseNumber.getText().trim() + unit.getText().trim();
+				DataBaseEngine db = new DataBaseEngine();// connect the database
+				List<HouseType> result = db.getResultByLocation(location, type1);
+				String latLon = LocationLookUpMap.getInstance().getCoordinate(location).toString();
+				model = new Model();
+				model.setHouseList((ArrayList<HouseType>) result);
+				model.setHouseType(typeString);
+				ArrayList<HouseType> filteredHouses = model.filteringSellHouse(build, living);
+				double estimatedPrice = model.getPrice(filteredHouses);
+				
+				pbarFrame.stop();
+				showPage((ArrayList<HouseType>) filteredHouses);
+				
+				Map<String, String> map = mapCommunication(latLon);
+				/* insertion into database */ 
+				/* The values are all strings. Absent values becomes empty string "" */
+				
+				
+				return null;
+			}
+		};
+
+		worker.execute();
+
 	}
+	
+	private Map<String, String> mapCommunication(String coordinates){
+		Map<String,String> map = new HashMap<>();
+	    map.put("Parcel Number", "");
+	    map.put("Category Code Description", type.getSelectedItem().toString());
+	    map.put("Owner 1", firstName.getText().trim() + lastName.getText().trim());
+	    map.put("Street Name", streetName.getText().trim());
+	    map.put("Unit", unit.getText().trim());
+	    map.put("Total Livable Area", livingArea.getText().trim());
+	    map.put("Zip Code", zipCode.getText().trim());
+	    map.put("House Number", houseNumber.getText().trim());
+	    map.put("Year Built", buildYear.getText().trim());
+	    map.put("Sale Price", "");
+	    map.put("Sale Date", "");
+	    map.put("Market Value", "");
+	    map.put("Market Value Date", "");
+	    map.put("Coordinates", coordinates);
+	    map.put("Total Area", "");
+	    map.put("Category Code", type.getSelectedItem().toString());     
+	    map.put("Basements", basement.getSelectedItem().toString());     
+	    map.put("parking", parking.getSelectedItem().toString());
+	    map.put("Exterior Condition", "");
+	    map.put("heatType", heat.getSelectedItem().toString());
+	    map.put("Central Air", centralAir.getSelectedItem().toString());   
+	    map.put("Interior Condition", "");
+	    map.put("Number of Bedrooms", "");
+	    map.put("Number of Bathrooms", "");  
+	    map.put("Number of Rooms", "");
+	    
+	    return map;
+	}
+	
+	public void showPage(ArrayList<HouseType> result) {
+		
+	    if (resultListing == null) {
+	      if(model == null) model = new Model();
+	      resultListing = new EstimateListingPage(model);
+	    }
+
+	    // if repeated search the engine, change the table and map
+	    if (!resultListing.isShowing()) {
+	      resultListing.changeTable(result);
+	      resultListing.clearMap();
+	      resultListing.resetInfo(result);
+	      resultListing.markMap();
+	      resultListing.show();
+
+	    } else {
+	      resultListing.changeTable(result);
+	      resultListing.clearMap();
+	      resultListing.resetInfo(result);
+	      resultListing.markMap();
+	    }
+	  }
+
+//	public static void main(String[] args) {
+//		SellPage sp = new SellPage();
+//	}
 
 }

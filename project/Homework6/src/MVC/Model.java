@@ -173,7 +173,7 @@ public class Model {
             }
             
             intToDouble = (double)sp_high;
-            if(sp_high != -1 && temp.getSalePrice() < intToDouble){
+            if(sp_high != -1 && temp.getSalePrice() > intToDouble){
                 continue;
             }
             
@@ -183,7 +183,7 @@ public class Model {
             }
             
             intToDouble = (double)mv_high;
-            if(mv_high != -1 && temp.getMarketValue() < intToDouble){
+            if(mv_high != -1 && temp.getMarketValue() > intToDouble){
                 continue;
             }
             

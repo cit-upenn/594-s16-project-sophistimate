@@ -133,7 +133,7 @@ public class BuyHomePage extends JFrame {
     tabbedPane.add("Buy", firstPanel);
     tabbedPane.add("Sell", secondPanel);
 
-    hint = new JLabel("Find your way home");
+    hint = new JLabel("Get Your Way Home");
     JLabel whiteSpace = new JLabel("                                                                       ");
     hint.setFont(new Font("Verdana", Font.PLAIN, 28));
     whiteSpace.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -145,7 +145,7 @@ public class BuyHomePage extends JFrame {
     bag.add(tabbedPane);
     add(bag);
     this.pack();
-
+    this.setTitle("Get Your Way Home");
   }
 
   /**
@@ -267,6 +267,13 @@ public class BuyHomePage extends JFrame {
         }
 
       }
+    });
+    
+    submit2.addActionListener(new ActionListener(){
+    	@Override
+        public void actionPerformed(ActionEvent e) {
+    		SellPage sp = new SellPage();
+    	}
     });
   }
 

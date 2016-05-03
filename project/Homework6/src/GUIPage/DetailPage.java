@@ -54,7 +54,7 @@ public class DetailPage extends JFrame{
 		streetScape.setLayout(new BorderLayout());
         streetView.setPreferredSize(new Dimension(700, 700));
 		streetScape.add(streetView.getComponent(0), BorderLayout.CENTER);
-		streetScape.setPreferredSize(new Dimension(300, 300));
+		streetScape.setPreferredSize(new Dimension(300, 270));
 		streetBrowser.loadURL("https://maps.googleapis.com/maps/api/streetview?size=600x300&location="
       + location + "&heading=151.78&pitch=-0.76&key=AIzaSyA14H3OSxJgCSUIlXcppWjb3P_2Qi6Hitc");
 		
@@ -78,6 +78,8 @@ public class DetailPage extends JFrame{
 		setVisible(true);
 		setLocationRelativeTo(null);
 		System.out.println(currentHouse.getType());
+		this.setTitle("Real Estate Details");
+		this.setResizable(false);
 	}
 
     /**
