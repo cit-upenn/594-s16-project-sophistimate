@@ -8,7 +8,7 @@ import com.google.maps.model.GeocodingResult;
 /**
  * This is a class used to lookup specific location, change it to longitude and latitude
  * This is a singelton class, since location is deterministic.
- * @author Hany
+ * @author Sophisitimate 
  * @param <GeoApiContext>
  *
  */
@@ -18,6 +18,9 @@ public class LocationLookUpMap {
   private static LocationLookUpMap oneInstance = null;
 //  GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyA37ATERCyi0vb1B80cXpJDavxwC7PUZ_k");;
   
+  /**
+   * This is singelton class used to check the longitude and latitude of a certain location
+   */
   private LocationLookUpMap() {
     //input intialized map
     localLookUp = new HashMap<String, Coordinate>();
@@ -48,6 +51,10 @@ public class LocationLookUpMap {
     
   }
   
+  /**
+   * This is method to get singleton
+   * @return singleton
+   */
   public synchronized static LocationLookUpMap getInstance () {
     if(oneInstance == null) {
       oneInstance = new LocationLookUpMap();
@@ -55,6 +62,10 @@ public class LocationLookUpMap {
     return oneInstance;
   }
   
+  /**
+   * Method used to return map stored in local
+   * @return
+   */
   public Map<String, Coordinate> getMap() {
     return localLookUp;
   }
