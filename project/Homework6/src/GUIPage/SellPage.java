@@ -252,7 +252,8 @@ public class SellPage extends JFrame{
 			@Override
 			protected Void doInBackground() {
 				/* Related real estate list & estimated price */
-				String location = streetName.getText().trim() + houseNumber.getText().trim() + unit.getText().trim();
+//				String location = streetName.getText().trim() + houseNumber.getText().trim() + unit.getText().trim();
+				String location = houseNumber.getText().trim() + " " + streetName.getText().trim();
 				DataBaseEngine db = new DataBaseEngine();// connect the database
 				List<HouseType> result = db.getResultByLocation(location, type1);
 				String latLon = LocationLookUpMap.getInstance().getCoordinate(location).toString();
