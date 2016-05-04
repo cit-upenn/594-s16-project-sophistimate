@@ -5,6 +5,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import House.*;
 
+/**
+ * This class is the model class which is used to store house data from search engine
+ * of mongodb, and the returned houses information are stored as an array list here.
+ * Also, there are some calculation method in this class which is used to operate on
+ * returned houses to filter or sorting a more customized results from user input.
+ * @author mlj
+ *
+ */
 public class Model {
     
     private ArrayList<HouseType> houseList;//house list filtered from the main page
@@ -226,6 +234,7 @@ public class Model {
         double laLow;
         double laHigh;
         ArrayList<HouseType> retHouses = new ArrayList<HouseType>();
+        /*expand the range to get returned houses*/
         for(int i = 1; i <= 5; i++){
             //build year range will expand 3 years in each loop
             byLow = buildYear - i * 3;
@@ -233,6 +242,7 @@ public class Model {
             //living area rang will expand 0.05 percent in each loop
             laLow = livingArea * (1 - 0.05 * i);
             laHigh = livingArea * (1 + 0.05 * i);
+            /*scan each house in a certain range*/
             for(int j = 0; j < houseList.size();j++){
                 HouseType temp = houseList.get(i);
                 if(temp.getBuildYear() >= byLow && temp.getBuildYear() <= byHigh && temp.getLivingArea() >= laLow && temp.getLivingArea() <= laHigh){
