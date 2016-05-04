@@ -41,14 +41,14 @@ public class DataBaseEngine {
   private final String databaseName = "cit594";
   private final String collectionName = "proj";
 //  private final String URIaddress = "mongodb://vagvlan536.0561.wlan.asc.upenn.edu:27000";
-//  private final String URIaddress = "mongodb://52.22.212.86:27017";
+  private final String URIaddress = "mongodb://52.22.212.86:27017";
   
   /**
    * This is constructor for database engine
    */
   public DataBaseEngine() {
-//    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
-    mongoClient = new MongoClient("localhost",27017);
+    mongoClient = new MongoClient(new MongoClientURI(URIaddress));
+//    mongoClient = new MongoClient("localhost",27017);
     db = mongoClient.getDatabase(databaseName);
   }
   
@@ -95,9 +95,13 @@ public class DataBaseEngine {
       if (crn == null) {
         return null;
       }
+      double upLat = crn.getLatitude()+0.005;
+      double downLat = crn.getLatitude()-0.005;
+      double upLnt = crn.getLongitude()+0.005;
+      double downLnt = crn.getLongitude()-0.005;
       
       //TO DO improved by indexing search
-      iterable = db.getCollection(collectionName).find();
+      iterable = db.getCollection(collectionName).find(and(and(com.mongodb.client.model.Filters.gte("Latitude", downLat), com.mongodb.client.model.Filters.lte("Latitude", upLat)), and(com.mongodb.client.model.Filters.gte("Longitude", downLnt), com.mongodb.client.model.Filters.lte("Longitude", upLnt))));
       PriorityQueue<HouseType> resultQueue = new PriorityQueue<HouseType>(30, new Comparator<HouseType>() {
         @Override
         public int compare(HouseType o1, HouseType o2) {
