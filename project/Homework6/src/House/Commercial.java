@@ -91,19 +91,16 @@ public class Commercial extends HouseType{
 
     @Override
     public int getBedroom() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public int getBathroom() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public int getBasement() {
-        // TODO Auto-generated method stub
         return 0;
     }
     
