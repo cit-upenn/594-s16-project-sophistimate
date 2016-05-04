@@ -33,9 +33,9 @@ public class EstimateListingPage extends ResultListingPage {
 	
 	/**
 	 * The constructor that should be called in SellPage
-	 * @param m		model
-	 * @param map 	related value to insert into database	
-	 * @param estimatedPrice	predicted price from the method in DataBaseEngine
+	 * @param m model
+	 * @param map related value to insert into database	
+	 * @param estimatedPrice predicted price from the method in DataBaseEngine
 	 */
 	public EstimateListingPage(Model m, Map<String, String> map, double estimatedPrice){
 		super();
