@@ -117,7 +117,6 @@ public class LocationLookUpMap {
 //    try {
 //      System.out.println(a.getCoordinateByGoogle("M78 nebula"));
 //    } catch (Exception e) {
-//      // TODO Auto-generated catch block
 //      e.printStackTrace();
 //    }
 //  } 

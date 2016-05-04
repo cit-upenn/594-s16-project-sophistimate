@@ -5,6 +5,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import House.*;
 
+/**
+ * This class is the model class which is used to store house data from search engine
+ * of mongodb, and the returned houses information are stored as an array list here.
+ * Also, there are some calculation method in this class which is used to operate on
+ * returned houses to filter or sorting a more customized results from user input.
+ * @author mlj
+ *
+ */
 public class Model {
     
     private ArrayList<HouseType> houseList;//house list filtered from the main page
@@ -222,34 +230,34 @@ public class Model {
      * @return an array list of 30 most similar houses, if not enough, just return these similar houses
      */
     public ArrayList<HouseType> filteringSellHouse(int buildYear, double livingArea){
-        int byLow;
-        int byHigh;
-        double laLow;
-        double laHigh;
-        ArrayList<HouseType> retHouses = new ArrayList<HouseType>();
-        for(int i = 1; i <= 20; i++){
-            //build year range will expand 3 years in each loop
-            byLow = buildYear - i * 3;
-            byHigh = buildYear + i * 3;
-            //living area rang will expand 0.05 percent in each loop
-            laLow = livingArea * (1 - 0.05 * i);
-            laHigh = livingArea * (1 + 0.05 * i);
-            for(int j = 0; j < houseList.size();j++){
-                HouseType temp = houseList.get(i);
-                if(temp.getBuildYear() >= byLow && temp.getBuildYear() <= byHigh && temp.getLivingArea() >= laLow && temp.getLivingArea() <= laHigh){
-                    if(!retHouses.contains(temp)){
-                        retHouses.add(temp);
-                    }
-                }
-            }
-            if(retHouses.size() >= 30){
-                retHouses = getSpecifiedHouses(retHouses, 0, 29); 
-                retHouses = sorting(retHouses,"salePrice");
-                return retHouses;
-            }
+        ArrayList<HouseType> retHouses = sorting(houseList, "livingArea");
+        ArrayList<HouseType> newHouses = new ArrayList<HouseType>();
+        if(livingArea <= retHouses.get(0).getLivingArea()){
+        	if(retHouses.size() < 30){
+        		newHouses = getSpecifiedHouses(retHouses, 0, retHouses.size() - 1);
+        	}else{
+        		newHouses = getSpecifiedHouses(retHouses, 0, 29);
+        	}
+        }else if(livingArea >= retHouses.get(retHouses.size() - 1).getLivingArea()){
+        	if(retHouses.size() < 30){
+        		newHouses = getSpecifiedHouses(retHouses, 0, retHouses.size() - 1);
+        	}else{
+        		newHouses = getSpecifiedHouses(retHouses, retHouses.size() - 30, retHouses.size() - 1);
+        	}
+        }else{
+        	for(int i = 0; i < retHouses.size(); i++){
+        		HouseType temp = retHouses.get(i);
+        		if(temp.getLivingArea() > livingArea){
+        			newHouses.add(temp);        			
+        		}
+        		if(newHouses.size() >= 30){
+        			break;
+        		}
+        	}
         }
-        retHouses = sorting(retHouses,"salePrice");
-        return retHouses;
+
+        newHouses = sorting(newHouses,"salePrice");
+        return newHouses;
     }
     
     /**

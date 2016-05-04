@@ -1,5 +1,13 @@
 package House;
 
+/**
+ * this interface define the houses, which should be 
+ * implemented by housetypes. The following method provides
+ * basic get method for certain attributes and will be
+ * implemented by housetype abstract class
+ * @author mlj
+ *
+ */
 public interface Houses {
 	
 	public String getKey();
