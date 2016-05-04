@@ -2,7 +2,10 @@ package House;
 
 /**
  * 
- * This is class used to create housetype
+ * This is an abstract housetype class, which implements houses interface
+ * and it gives attributes and some other methods to different houses. This
+ * class should be extended by concrete house types as commercial, residential
+ * and industrial.
  * @author Sophisitimate
  *
  */

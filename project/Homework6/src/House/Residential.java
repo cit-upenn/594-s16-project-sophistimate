@@ -111,7 +111,6 @@ public class Residential extends HouseType{
 
     @Override
     public double getOutdoorArea() {
-        // TODO Auto-generated method stub
         return 0;
     }
 }
