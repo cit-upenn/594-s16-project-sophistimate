@@ -187,29 +187,10 @@ public class BuyHomePage extends JFrame {
     BuyHomePage tp = new BuyHomePage();
     tp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    // ResultListingPage rl = new ResultListingPage();
-    // rl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // rl.setSize(1100, 700);
-    // rl.setResizable(false);
-    // rl.setVisible(true);
-    // rl.setLocationRelativeTo(null);
-
     tp.setSize(1100, 700);
     tp.setResizable(false);
     tp.setVisible(true);
     tp.setLocationRelativeTo(null);
-
-    // try{
-    // Thread.sleep(5000);
-    // } catch(Exception e){
-    // e.printStackTrace();
-    // }
-
-    // while(!rl.isShowing()) {
-    // System.out.println(HouseOption.COMMERCIAL.toString());
-    // rl.show();
-    //
-    // }
 
   }
 

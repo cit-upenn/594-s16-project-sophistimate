@@ -13,7 +13,8 @@ public class Model {
     private View view = null;
     
     public Model(){
-        houseList = null;
+//        houseList = null;
+    	houseList = new ArrayList<HouseType>();
         houseType = null;
         isAscendent = 1;
     }
@@ -226,7 +227,7 @@ public class Model {
         double laLow;
         double laHigh;
         ArrayList<HouseType> retHouses = new ArrayList<HouseType>();
-        for(int i = 1; i <= 5; i++){
+        for(int i = 1; i <= 20; i++){
             //build year range will expand 3 years in each loop
             byLow = buildYear - i * 3;
             byHigh = buildYear + i * 3;

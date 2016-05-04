@@ -61,7 +61,7 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
     public ResultListingPage(){
 //        panelCreate();
 //        init();
-        this.setTitle("Result from Database");
+//        this.setTitle("Result from Database");
     }
     
     /**
@@ -145,6 +145,7 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
         }   
         markMap();//mark the google map
         addActionListeners();
+        addActionListeners_Submit();
     }
     
     /**
@@ -323,41 +324,9 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
         
         
     }
-
-    /**
-     * this method is used to add action listener to certain components of this page, 
-     * including filtering, sorting, show details and table rows clicking
-     */ 
-    public void addActionListeners(){
-        table.table.addMouseListener(new java.awt.event.MouseAdapter(){
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt){
-                int row = table.table.rowAtPoint(evt.getPoint());
-                //change the selected icon back to other houses             
-                if(currentHouse != null){
-                    browser.executeJavaScript("markers["+ lastRow +"].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')");
-                }
-                lastRow = row;
-                //change the icon of newly selected house to a flag
-                if(row >= 0 && row < retHouse.size()){
-                    currentHouse = retHouse.get(row);
-                    browser.executeJavaScript("markers["+ lastRow +"].setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')");
-                    
-                }
-                //if select a null row, change current house to null
-                if(row >= retHouse.size()){
-                    currentHouse = null;
-                }
-                if (evt.getClickCount() == 2) {     /*  Show related details page */
-                    if( currentHouse != null ) {
-                        DetailPage dp = new DetailPage(currentHouse);
-                    }
-                }
-                
-            }
-        });
-
-        //click handler for submit filter, gets information form user and collects result from model
+    
+    public void addActionListeners_Submit(){
+    	//click handler for submit filter, gets information form user and collects result from model
         //then mark the first 30 new results on the map         
         submitFilter.addActionListener(new ActionListener(){
             @Override
@@ -424,6 +393,40 @@ public class ResultListingPage extends JFrame{    /* How to resolove conflicts *
                 clearMap();
                 changeTable(retHouse);
                 markMap();
+            }
+        });
+    }
+    
+    /**
+     * this method is used to add action listener to certain components of this page, 
+     * including filtering, sorting, show details and table rows clicking
+     */ 
+    public void addActionListeners(){
+        table.table.addMouseListener(new java.awt.event.MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                int row = table.table.rowAtPoint(evt.getPoint());
+                //change the selected icon back to other houses             
+                if(currentHouse != null){
+                    browser.executeJavaScript("markers["+ lastRow +"].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')");
+                }
+                lastRow = row;
+                //change the icon of newly selected house to a flag
+                if(row >= 0 && row < retHouse.size()){
+                    currentHouse = retHouse.get(row);
+                    browser.executeJavaScript("markers["+ lastRow +"].setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')");
+                    
+                }
+                //if select a null row, change current house to null
+                if(row >= retHouse.size()){
+                    currentHouse = null;
+                }
+                if (evt.getClickCount() == 2) {     /*  Show related details page */
+                    if( currentHouse != null ) {
+                        DetailPage dp = new DetailPage(currentHouse);
+                    }
+                }
+                
             }
         });
         

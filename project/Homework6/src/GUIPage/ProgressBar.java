@@ -92,7 +92,7 @@ public class ProgressBar extends JFrame {
             break;
           }
 
-          Thread.sleep(300); /* Change the speed of the progress bar */
+          Thread.sleep(100); /* Change the speed of the progress bar */
         }
 
         while (k == pbar.getMaximum()) {

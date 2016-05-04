@@ -62,7 +62,8 @@ public class SellPage extends JFrame{
 	private JPanel textHolder;
 	
 	private ProgressBar pbarFrame;
-	private ResultListingPage resultListing;
+//	private ResultListingPage resultListing;
+	private EstimateListingPage resultListing;
 	
 	private HouseOption type1;
 	
@@ -250,14 +251,17 @@ public class SellPage extends JFrame{
 				model.setHouseType(typeString);
 				ArrayList<HouseType> filteredHouses = model.filteringSellHouse(build, living);
 				double estimatedPrice = model.getPrice(filteredHouses);
+				model.setHouseList(filteredHouses);
 				
 				pbarFrame.stop();
-				showPage((ArrayList<HouseType>) filteredHouses);
 				
 				Map<String, String> map = mapCommunication(latLon);
-				/* insertion into database */ 
-				/* The values are all strings. Absent values becomes empty string "" */
 				
+//				showPage((ArrayList<HouseType>) result, map);
+				showPage((ArrayList<HouseType>) filteredHouses, map);
+			
+				/* Ready to insert into database, which actually occurs in EstimateListingPage */ 
+				/* The values in map are all strings. Absent values becomes empty string "" */
 				
 				return null;
 			}
@@ -271,7 +275,7 @@ public class SellPage extends JFrame{
 		Map<String,String> map = new HashMap<>();
 	    map.put("Parcel Number", "");
 	    map.put("Category Code Description", type.getSelectedItem().toString());
-	    map.put("Owner 1", firstName.getText().trim() + lastName.getText().trim());
+	    map.put("Owner 1", firstName.getText().trim() + " " + lastName.getText().trim());
 	    map.put("Street Name", streetName.getText().trim());
 	    map.put("Unit", unit.getText().trim());
 	    map.put("Total Livable Area", livingArea.getText().trim());
@@ -298,15 +302,15 @@ public class SellPage extends JFrame{
 	    return map;
 	}
 	
-	public void showPage(ArrayList<HouseType> result) {
+	public void showPage(ArrayList<HouseType> result, Map<String, String> map) {
 		
 	    if (resultListing == null) {
-	      if(model == null) model = new Model();
-	      resultListing = new EstimateListingPage(model);
+	      resultListing = new EstimateListingPage(model, map);
 	    }
-
+	    
 	    // if repeated search the engine, change the table and map
 	    if (!resultListing.isShowing()) {
+		  ((EstimateListingPage)resultListing).setMap(map);
 	      resultListing.changeTable(result);
 	      resultListing.clearMap();
 	      resultListing.resetInfo(result);
@@ -314,6 +318,7 @@ public class SellPage extends JFrame{
 	      resultListing.show();
 
 	    } else {
+		  ((EstimateListingPage)resultListing).setMap(map);
 	      resultListing.changeTable(result);
 	      resultListing.clearMap();
 	      resultListing.resetInfo(result);
