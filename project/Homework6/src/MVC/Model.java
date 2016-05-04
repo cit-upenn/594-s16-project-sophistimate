@@ -229,36 +229,34 @@ public class Model {
      * @return an array list of 30 most similar houses, if not enough, just return these similar houses
      */
     public ArrayList<HouseType> filteringSellHouse(int buildYear, double livingArea){
-        int byLow;
-        int byHigh;
-        double laLow;
-        double laHigh;
-        ArrayList<HouseType> retHouses = new ArrayList<HouseType>();
-        /*expand the range to get returned houses*/
-        for(int i = 1; i <= 5; i++){
-            //build year range will expand 3 years in each loop
-            byLow = buildYear - i * 3;
-            byHigh = buildYear + i * 3;
-            //living area rang will expand 0.05 percent in each loop
-            laLow = livingArea * (1 - 0.05 * i);
-            laHigh = livingArea * (1 + 0.05 * i);
-            /*scan each house in a certain range*/
-            for(int j = 0; j < houseList.size();j++){
-                HouseType temp = houseList.get(i);
-                if(temp.getBuildYear() >= byLow && temp.getBuildYear() <= byHigh && temp.getLivingArea() >= laLow && temp.getLivingArea() <= laHigh){
-                    if(!retHouses.contains(temp)){
-                        retHouses.add(temp);
-                    }
-                }
-            }
-            if(retHouses.size() >= 30){
-                retHouses = getSpecifiedHouses(retHouses, 0, 29); 
-                retHouses = sorting(retHouses,"salePrice");
-                return retHouses;
-            }
+        ArrayList<HouseType> retHouses = sorting(houseList, "livingArea");
+        ArrayList<HouseType> newHouses = new ArrayList<HouseType>();
+        if(livingArea <= retHouses.get(0).getLivingArea()){
+        	if(retHouses.size() < 30){
+        		newHouses = getSpecifiedHouses(retHouses, 0, retHouses.size() - 1);
+        	}else{
+        		newHouses = getSpecifiedHouses(retHouses, 0, 29);
+        	}
+        }else if(livingArea >= retHouses.get(retHouses.size() - 1).getLivingArea()){
+        	if(retHouses.size() < 30){
+        		newHouses = getSpecifiedHouses(retHouses, 0, retHouses.size() - 1);
+        	}else{
+        		newHouses = getSpecifiedHouses(retHouses, retHouses.size() - 30, retHouses.size() - 1);
+        	}
+        }else{
+        	for(int i = 0; i < retHouses.size(); i++){
+        		HouseType temp = retHouses.get(i);
+        		if(temp.getLivingArea() > livingArea){
+        			newHouses.add(temp);        			
+        		}
+        		if(newHouses.size() >= 30){
+        			break;
+        		}
+        	}
         }
-        retHouses = sorting(retHouses,"salePrice");
-        return retHouses;
+
+        newHouses = sorting(newHouses,"salePrice");
+        return newHouses;
     }
     
     /**
