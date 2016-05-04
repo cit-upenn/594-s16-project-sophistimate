@@ -67,7 +67,8 @@ public class SellPage extends JFrame{
 	private HouseOption type1;
 	
 	/**
-	 * This is SellPage constructor
+	 * This is SellPage constructor which set up the layout
+	 * and size of the panel
 	 */
 	public SellPage(){
 		try{
@@ -174,7 +175,9 @@ public class SellPage extends JFrame{
 	}
 	
 	 /**
-	 * This 
+	 * This method add action listener to the submit button
+	 * of the sell page. It should set the model, communicate
+	 * with database and show the resulting page.  
 	 */
 	public void addActionListeners(){
 		 submit.addActionListener(new ActionListener(){
@@ -235,6 +238,13 @@ public class SellPage extends JFrame{
 		 });
 	 }
 	 
+	/**
+	 * This method is called when user submit the basic information of the house
+	 * and communicate with database mainly in this method where swing worker is used.
+	 * @param typeString gives the type of the house
+	 * @param build gives the build year of the house
+	 * @param living tells the living area of the house
+	 */
 	public void swingWorker(String typeString, int build, double living) {
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 
@@ -267,6 +277,13 @@ public class SellPage extends JFrame{
 
 	}
 	
+	/**
+	 * this method is used to create a new house information and will
+	 * later be put back into the database, which is adding a house 
+	 * entry into the original database.
+	 * @param coordinates gives the location of the house
+	 * @return a map object which is created to initialize a house object
+	 */
 	private Map<String, String> mapCommunication(String coordinates){
 		Map<String,String> map = new HashMap<>();
 	    map.put("Parcel Number", "");
@@ -298,6 +315,12 @@ public class SellPage extends JFrame{
 	    return map;
 	}
 	
+	/**
+	 * this method is used to show the result page with the
+	 * information from user and get the similar houses from
+	 * database engine.
+	 * @param result gives an array list of houses to show in the resulting page
+	 */
 	public void showPage(ArrayList<HouseType> result) {
 		
 	    if (resultListing == null) {
