@@ -16,7 +16,6 @@ public class LocationLookUpMap {
   //This is a map which stores the main location of phl, it will updated whenever user lookup a new location.
   private Map<String, Coordinate> localLookUp;
   private static LocationLookUpMap oneInstance = null;
-//  GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyA37ATERCyi0vb1B80cXpJDavxwC7PUZ_k");;
   
   /**
    * This is singelton class used to check the longitude and latitude of a certain location
@@ -98,7 +97,7 @@ public class LocationLookUpMap {
   public String getCoordinateByGoogle(String location)
   {
     String ret = null;
-    GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyA37ATERCyi0vb1B80cXpJDavxwC7PUZ_k");
+    GeoApiContext context = new GeoApiContext().setApiKey("<YOUR GOOGLE MAP API>");
     GeocodingResult[] results = null;
     try {
       results = GeocodingApi.geocode(context,location +", Philadelphia, PA").await();
