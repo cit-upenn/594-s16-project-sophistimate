@@ -14,7 +14,7 @@ public class Test {
         JFrame test = new JFrame("Google Maps");
 
         try {
-            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x600&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyA37ATERCyi0vb1B80cXpJDavxwC7PUZ_k&format=jpg";
+            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x600&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=<Your Google API KEY>&format=jpg";
             String destinationFile = "image.jpg";
             String str = destinationFile;
             URL url = new URL(imageUrl);
